@@ -1,0 +1,18 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Conocenos;
+use Illuminate\Database\Seeder;
+
+class ConocenosSeeder extends Seeder
+{
+   
+    public function run()
+    {
+        Conocenos::create([
+            'mision' => 'Nuestra misión es...',
+            'vision' => 'Nuestra visión es...'
+        ]);
+    }
+}
