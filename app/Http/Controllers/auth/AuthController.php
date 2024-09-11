@@ -57,7 +57,8 @@ class AuthController extends Controller
 	public function logados()
 	{
 	    if (Auth::check()) {
-	        return view('auth/logados');
+			return view('auth/logados'); // Cambia a la vista del dashboard
+		
 	    }
 	
 	    return redirect("/")->withSuccess('No tienes acceso, por favor inicia sesión');
