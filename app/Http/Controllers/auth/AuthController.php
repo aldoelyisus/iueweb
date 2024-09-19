@@ -63,4 +63,9 @@ class AuthController extends Controller
 	
 	    return redirect("/")->withSuccess('No tienes acceso, por favor inicia sesión');
     }
+
+	public function crud()
+    {
+        return view('crud'); // Asegúrate que 'crud' corresponde a la vista en resources/views/crud.blade.php
+    }
 }

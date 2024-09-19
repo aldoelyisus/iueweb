@@ -19,9 +19,10 @@ function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.querySelector('.main-content');
 
-    sidebar.classList.toggle('hidden');
-    mainContent.classList.toggle('hidden');
+    sidebar.classList.toggle('hidden');  // Mostrar/ocultar el sidebar
+    mainContent.classList.toggle('hidden');  // Ajustar el contenido principal
 }
+
 
 // Cargar el tema guardado al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
