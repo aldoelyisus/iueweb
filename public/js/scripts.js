@@ -34,3 +34,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Añadir evento al botón de toggle del sidebar
     document.getElementById('toggleSidebar')?.addEventListener('click', toggleSidebar);
 });
+
+

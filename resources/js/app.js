@@ -5,6 +5,9 @@
  */
 
 import './bootstrap';
+import './scripts-home'; // Asegúrate de que esta ruta sea correcta
+import './app.jsx';
+
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -13,3 +16,4 @@ import './bootstrap';
  */
 
 import './app.jsx';
+import './scripts-home'; // Asegúrate de que la ruta sea correcta
