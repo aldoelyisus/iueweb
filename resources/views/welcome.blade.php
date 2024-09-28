@@ -116,15 +116,15 @@
 <!-- Sección de cuerpo eslogan -->
 <section class="contenedor-cuerpo contenedor">
     <div class="eslogan">
-        <h2>El fracaso y el rechazo son sólo el primer escalón hacia el éxito</h2>
-        <p>Jim Valvano</p>
+        <h2 class="side-left">El fracaso y el rechazo son sólo el primer escalón hacia el éxito</h2>
+        <p class="side-right">Jim Valvano</p>
     </div>
 </section>
 <!-- Fin de cuerpo eslogan -->
 
 <!-- Cuerpo Youtube -->
 <section class="yt-contenedor">
-    <h2>Instituto Universitario Enlace</h2>
+    <h2 class="side-left">Instituto Universitario Enlace</h2>
     <iframe width="900" height="500" src="https://www.youtube.com/embed/bEM7nKTvY2U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </section>
 <!-- Fin de cuerpo Youtube -->
@@ -146,6 +146,9 @@
 </footer>
 <!-- Fin de footer -->
 
+
+  <!-- scroll reveal -->
+  <script src="https://unpkg.com/scrollreveal"></script>
 
 <div id="app"></div>
 <script src="/scripts.js"></script> <!-- Ruta corregida para scripts.js -->

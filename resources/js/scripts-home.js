@@ -184,3 +184,17 @@ document.addEventListener("DOMContentLoaded", () => {
     loading.style.display = 'none';
     document.body.style.overflow = 'auto'; // Restaurar el desplazamiento
 });
+
+
+/*==================== quita toggle icon y navbar cuando da click  ====================*/
+ScrollReveal({
+    reset: true,
+    distance: '80px',
+    duration: 2000,
+    delay: 200
+   });
+
+   ScrollReveal().reveal('.side-top', { origin: 'top'});
+   ScrollReveal().reveal('.side-down', { origin: 'bottom'});
+   ScrollReveal().reveal('.side-left',  { origin: 'left'});
+   ScrollReveal().reveal('.side-right',  { origin: 'right'});

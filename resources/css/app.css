@@ -142,11 +142,11 @@ span {
 }
 
 .barra a:hover, .navbar a.active {
-
+ 
     color: #0ef;
     transition: .3s ease-in-out;
-
 }
+
 
 /* Redes sociales barra */
 .social-icons-b{
