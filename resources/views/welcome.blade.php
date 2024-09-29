@@ -84,15 +84,24 @@
 </header>
 <!-- Fin del encabezado Menú -->
 
-<!-- Inicio de Slider Y cuerpo -->
+<!-- Inicio de Slider y cuerpo -->
 <section class="contenedor-slider contenedor fade-in">
     <!-- Contenedor de imágenes -->
     <div class="slider-frame">
         <ul id="slider">
-            <li><img src="{{ asset('img/img1.png') }}" alt="">Banner 1</li>
-            <li><img src="{{ asset('img/banner-1.png') }}" alt="">Banner 2</li>
-            <li><img src="{{ asset('img/banner-2.png') }}" alt="">Banner 3</li>
-            <li><img src="{{ asset('img/banner-3.png') }}" alt="">Banner 4</li>
+            @php
+                // Array con las imágenes (puedes modificar estas rutas según tus necesidades)
+                $images = [
+                    'img/img1.png', 
+                    'img/banner-1.png', 
+                    'img/banner-2.png', 
+                    'img/banner-3.png'
+                ];
+            @endphp
+
+            @foreach ($images as $image)
+                <li><img src="{{ asset($image) }}" alt="Banner">Banner</li>
+            @endforeach
         </ul>
     </div>
     <!-- Fin del contenedor de imágenes -->
@@ -103,16 +112,14 @@
         <button class="next">&#10095;</button>
     </div>
     <!-- Fin de indicador de flechas -->
-     
+
     <!-- Indicadores redondos -->
     <div class="indicators">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
+        @foreach ($images as $index => $image)
+            <span class="dot" onclick="currentSlide({{ $index + 1 }})"></span>
+        @endforeach
     </div>
 </section>
-<!-- Fin del cuerpo de slider -->
 
 <!-- Sección de cuerpo eslogan -->
 <section class="contenedor-cuerpo contenedor">

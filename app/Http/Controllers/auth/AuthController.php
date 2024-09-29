@@ -76,5 +76,38 @@ class AuthController extends Controller
         
         // Redirecciona a la página de inicio de sesión
         return redirect()->route('login')->with('message', 'Has cerrado sesión con éxito.');
-    }
+ 
+ 
+   }
+
+   public function uploadImage(Request $request)
+{
+    // Valida la imagen
+    $request->validate([
+        'image' => 'required|mimes:jpg,png,jpeg|max:2048',
+        'banner_index' => 'required|integer',
+    ]);
+
+    // Subir la nueva imagen
+    $image = $request->file('image');
+    $imageName = time() . '-' . $image->getClientOriginalName();
+    $image->move(public_path('img'), $imageName);
+
+    // Actualiza la ruta de la imagen en la sesión
+    $images = session('images', [
+        'img/img1.png',
+        'img/banner-1.png',
+        'img/banner-2.png',
+        'img/banner-3.png'
+    ]);
+
+    $images[$request->banner_index] = 'img/' . $imageName;
+
+    // Guardar la nueva lista de imágenes en la sesión
+    session(['images' => $images]);
+
+    return redirect()->back()->with('success', 'Imagen reemplazada exitosamente.');
+}
+
+
 }

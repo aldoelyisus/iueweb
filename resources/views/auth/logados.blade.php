@@ -27,7 +27,7 @@
             <h5 class="nav-section-title">Interfaz</h5>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="crud.php">CRUD</a>
+            <a class="nav-link text-white" href="{{ route('crud') }}">CRUD</a>
         </li>
         <div class="mt-auto"></div>
         <li class="nav-item">

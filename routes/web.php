@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ImageController; // Asegúrate de importar tu controlador de imágenes
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,15 @@ Route::get('/index_usuario', function () {
     return view('index_usuario');
 })->name('index_usuario');
 
+// Ruta para manejar la carga de imágenes
+Route::post('/upload-image', [ImageController::class, 'upload'])->name('upload_image');
+
 //mandar a inicio botón
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+
+
+
+Route::post('/upload-image', [BannerController::class, 'uploadImage'])->name('upload_image');
