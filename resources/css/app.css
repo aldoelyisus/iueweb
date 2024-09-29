@@ -141,19 +141,41 @@ span {
     flex-direction: column;
 }
 
-.barra a:hover, .navbar a.active {
- 
-    color: #0ef;
-    transition: .3s ease-in-out;
+/* Estilos mejorados para los enlaces de la barra de navegación */
+.barra a {
+    position: relative;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
 }
 
-
-/* Redes sociales barra */
-.social-icons-b{
-    display: flex;
-    gap: 1rem;
+/* Efecto hover moderno en los enlaces solo dentro de la barra */
+.barra a::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-principal);
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
 }
-.social-media a{
+
+.barra a:hover {
+    color: var(--color-principal);
+    transform: scale(1.05); /* Efecto de escala suave */
+}
+
+.barra a:hover::before {
+    visibility: visible;
+    width: 100%;
+}
+
+/* Efecto de transición en las redes sociales */
+.social-media a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
@@ -165,18 +187,22 @@ span {
     font-size: 1rem;
     color: var(--blanco);
     margin: 1rem .5rem;
-    
+    text-decoration: none;
     transition: .5s ease-out;
-    
 }
 
 .social-media a:hover {
-    text-decoration: none;
     background: var(--color-principal);
     color: var(--second-bg-color);
-    box-shadow: 0 0 1rem var(--color-principal);
+    box-shadow: 0 0 10px var(--color-principal), 0 0 20px var(--color-principal);
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
     text-decoration: none;
-    
+}
+
+/* Deshabilitar la línea inferior en los enlaces de redes sociales */
+.social-media a::before {
+    content: none; /* Asegura que no haya pseudo-elemento en redes sociales */
 }
 
 /* Estilos del contenedor del slider */
@@ -510,16 +536,12 @@ span {
         height: 350px; /* Mantiene la proporción del video */
     }
 
-    /* Estilos del contenedor dropdown */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
 
 /* Estilos del contenedor dropdown */
 .dropdown {
     position: relative;
     display: inline-block;
+    text-transform: uppercase;
 }
 
 /* Estilos generales para el contenido dropdown */
@@ -550,6 +572,7 @@ span {
     text-decoration: none;
     display: block;
     text-align: center;
+    text-transform: uppercase;
 }
 
 /* Efecto hover para los enlaces dentro del contenido dropdown */
@@ -610,6 +633,7 @@ span {
 .dropdown {
     position: relative;
     display: inline-block;
+    text-transform: uppercase;
 }
 
 /* Estilos generales para el contenido dropdown */
@@ -636,6 +660,7 @@ span {
     text-decoration: none;
     display: block;
     text-align: center;
+    text-transform: uppercase;
 }
 
 /* Efecto hover para los enlaces dentro del contenido dropdown */
@@ -1145,6 +1170,7 @@ span {
     text-decoration: none;
     display: block;
     text-align: center;
+    text-transform: uppercase;
 }
 
 /* Efecto hover para los enlaces dentro del contenido dropdown */
@@ -1231,6 +1257,7 @@ span {
     text-decoration: none;
     display: block;
     text-align: center;
+    text-transform: uppercase;
 }
 
 /* Efecto hover para los enlaces dentro del contenido dropdown */
