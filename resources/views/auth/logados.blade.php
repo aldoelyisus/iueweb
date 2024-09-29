@@ -7,12 +7,21 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
+          <!-- Favicon -->
+          <link rel="icon" href="{{ asset('img/admin_fiveicon.png') }}" type="image/x-icon"> <!-- Asegúrate de usar la función asset() de Laravel -->
+
+
 </head>
 <body>
 
 
+
 @include('includes.sidebar')
 
+<!-- Pantalla de carga -->
+<div id="loading">
+    <img src="img/LogoF.jpg" alt="Cargando...">
+</div>
 
     <div class="main-content">
         <header class="header d-flex align-items-center justify-content-between">
@@ -45,5 +54,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
+
+    
 </body>
 </html>

@@ -36,3 +36,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+ // Ocultar la pantalla de carga una vez que se haya cargado la página
+ window.addEventListener('load', function () {
+    const loading = document.getElementById('loading');
+    loading.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restaurar el desplazamiento
+});

@@ -32,6 +32,10 @@ Route::get('/logout', function () {
     return view('logout');
 })->name('logout');
 
+// Página de logout
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
 
 // Página de usuario final
 Route::get('/index_usuario', function () {

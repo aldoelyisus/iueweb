@@ -9,8 +9,8 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     
   <!-- Icono FiveIcon -->
-    <link rel="icon" href="img/LogoF.jpg" type="image/png">
-    
+  <link rel="icon" href="img/LogoF.jpg" sizes="32x32" type="image/png">
+
     <!-- Enlace para Iconos -->  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Instituto Universitario Enlace</title>
@@ -35,7 +35,7 @@
 <header class="cabeza">
     <div class="barra">
     <div class="logo">
-    <a href="{{ route('logados') }}"> <!-- Cambia esto para redirigir al login de Laravel -->
+    <a href="{{ route('login') }}"> <!-- Cambia esto para redirigir al login de Laravel -->
         <img src="{{ asset('img/Logo_IUE.png') }}" alt="Logo">
     </a>
 </div>

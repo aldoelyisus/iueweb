@@ -1,3 +1,4 @@
+
 <div id="sidebar" class="sidebar">
     <!-- Contenido del sidebar -->
     <div class="logo">
@@ -17,7 +18,7 @@
         <div class="mt-auto"></div>
         <li class="nav-item">
     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-        @csrf
+       
         <button type="submit" class="nav-link text-white" style="background: none; border: none; cursor: pointer;">Cerrar sesión</button>
     </form>
 </li>
