@@ -75,6 +75,6 @@ class AuthController extends Controller
         Auth::logout(); // Cierra la sesión del usuario autenticado
         
         // Redirecciona a la página de inicio de sesión
-        return redirect()->route('auth.home')->with('message', 'Has cerrado sesión con éxito.');
+        return redirect()->route('login')->with('message', 'Has cerrado sesión con éxito.');
     }
 }

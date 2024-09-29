@@ -4,13 +4,15 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
+|-------------------------------------------------------------------------- 
+| Web Routes 
+|-------------------------------------------------------------------------- 
 */
 
 // Página de inicio o formulario de login
-Route::get('/', [AuthController::class, 'index'])->name('auth.home');
+Route::get('/', function () {
+    return view('welcome'); // Cambia esto para que devuelva la vista de bienvenida
+})->name('auth.home');
 
 // Ruta para manejar el login (POST)
 Route::post('/login', [AuthController::class, 'login'])->name('login');
@@ -26,13 +28,12 @@ Route::get('/welcome', function () {
     return view('welcome');
 })->name('welcome');
 
-
 // Página de logout
 Route::get('/logout', function () {
     return view('logout');
 })->name('logout');
 
-// Página de logout
+// Página de login
 Route::get('/login', function () {
     return view('login');
 })->name('login');
