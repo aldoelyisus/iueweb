@@ -17,6 +17,7 @@
    
     <!-- Solo usa Vite para cargar tus archivos CSS y JS -->
     @vite('resources/css/app.css')
+    @vite('resources/css/noticias.css')
     @vite('resources/js/app.js')
 
     <meta property="og:title" content="Instituto Universitario Enlace">
@@ -84,7 +85,7 @@
 <!-- Fin del encabezado Menú -->
 
 <!-- Inicio de Slider Y cuerpo -->
-<section class="contenedor-slider contenedor">
+<section class="contenedor-slider contenedor fade-in">
     <!-- Contenedor de imágenes -->
     <div class="slider-frame">
         <ul id="slider">
@@ -125,19 +126,59 @@
 <!-- Cuerpo Youtube -->
 <section class="yt-contenedor">
     <h2 class="side-left">Instituto Universitario Enlace</h2>
-    <iframe width="900" height="500" src="https://www.youtube.com/embed/bEM7nKTvY2U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe class="fade-in" width="900" height="500" src="https://www.youtube.com/embed/bEM7nKTvY2U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </section>
 <!-- Fin de cuerpo Youtube -->
+
+<!-- Sección de Noticias -->
+<section class="contenedor-noticias fade-in">
+    <h2 class="titulo-noticias side-left">Últimas Noticias</h2>
+    <div class="noticias-grid">
+        <article class="noticia">
+            <img src="{{ asset('img/noticias/noticia_1.jpg') }}" alt="Noticia 1">
+            <div class="contenido-noticia">
+                <h3>Título de Noticia 1</h3>
+                <p>Resumen breve de la noticia 1. Puedes leer más detalles dentro de la página.</p>
+                <a href="#" class="btn-leer-mas">Leer más</a>
+            </div>
+        </article>
+        <article class="noticia">
+            <img src="{{ asset('img/noticias/noticia_2.jpg') }}"  alt="Noticia 2">
+            <div class="contenido-noticia">
+                <h3>Título de Noticia 2</h3>
+                <p>Resumen breve de la noticia 2. Puedes leer más detalles dentro de la página.</p>
+                <a href="#" class="btn-leer-mas">Leer más</a>
+            </div>
+        </article>
+        <article class="noticia">
+            <img src="{{ asset('img/noticias/noticia_3.jpg') }}"  alt="Noticia 3">
+            <div class="contenido-noticia">
+                <h3>Título de Noticia 3</h3>
+                <p>Resumen breve de la noticia 3. Puedes leer más detalles dentro de la página.</p>
+                <a href="#" class="btn-leer-mas">Leer más</a>
+            </div>
+        </article>
+        <article class="noticia">
+            <img src="{{ asset('img/noticias/noticia_4.jpg') }}"  alt="Noticia 4">
+            <div class="contenido-noticia">
+                <h3>Título de Noticia 4</h3>
+                <p>Resumen breve de la noticia 4. Puedes leer más detalles dentro de la página.</p>
+                <a href="#" class="btn-leer-mas">Leer más</a>
+            </div>
+        </article>
+    </div>
+</section>
+
 
 <!-- Footer -->
 <footer class="footer">
     <div class="contenedor">
-        <div class="logo">
+        <div class="logo fade-in">
             <img src="{{ asset('img/Logo_IUE.png') }}" alt="Instituto Universitario Enlace">
         </div>
-        <p>&copy; 2024 Instituto Universitario Enlace. Todos los derechos reservados.</p>
-        <p><a href="#contacto_scroll" class="smooth-scroll">Contáctanos</a> | <a href="#privacy_policy" class="smooth-scroll">Política de Privacidad</a></p>
-        <div class="social-media">
+        <p class="side-left">&copy; 2024 Instituto Universitario Enlace. Todos los derechos reservados.</p>
+        <p class="side-right"><a href="#contacto_scroll" class="smooth-scroll">Contáctanos</a> | <a href="#privacy_policy" class="smooth-scroll">Política de Privacidad</a></p>
+        <div class="social-media side-down">
             <a href="https://www.facebook.com/p/Instituto-Universitario-Enlace-100069745053476/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="https://wa.me/15549174404" target="_blank" aria-label="whatsapp"><i class="fab fa-whatsapp"></i></a>
             <a href="https://www.youtube.com/@IUE_edu" target="_blank" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
@@ -145,6 +186,8 @@
     </div>
 </footer>
 <!-- Fin de footer -->
+
+
 
 
   <!-- scroll reveal -->

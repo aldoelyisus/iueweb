@@ -198,3 +198,10 @@ ScrollReveal({
    ScrollReveal().reveal('.side-down', { origin: 'bottom'});
    ScrollReveal().reveal('.side-left',  { origin: 'left'});
    ScrollReveal().reveal('.side-right',  { origin: 'right'});
+
+   // Configuración específica para elementos con opacidad
+ScrollReveal().reveal('.fade-in', { 
+    opacity: 0, // Comienza con opacidad 0
+    duration: 1500, // Duración del efecto
+    easing: 'ease-in-out' // Efecto de transición suave
+});
