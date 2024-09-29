@@ -5,8 +5,14 @@
     <h1 class="text-center success-message">{{ session('success') }}</h1>
 @endif
 
-
 <main class="login-form">
+    <!-- Mostrar mensaje de error -->
+    @if ($errors->any())
+        <div class="alert alert-danger mt-3">
+            {{ $errors->first() }}
+        </div>
+    @endif
+
     <div class="container mx-auto"> <!-- Agregamos mx-auto para centrar -->
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8"> <!-- Ajuste aquí para pantallas grandes -->
@@ -34,6 +40,11 @@
                             <button type="submit" class="btn btn-primary btn-block text-dark">Entrar</button>
                         </div>
                     </form>
+
+                    <!-- Botón para volver a la página de bienvenida -->
+                    <div class="text-center mt-3">
+                        <a href="{{ route('welcome') }}" class="btn btn-secondary">Volver a IUE</a>
+                    </div>
                 </div>
             </div>
         </div>

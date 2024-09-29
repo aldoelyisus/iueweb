@@ -16,11 +16,10 @@ class AuthController extends Controller
     {
         // Comprobamos si el usuario ya está logado
         if (Auth::check()) {
-            // Si está logado le mostramos la vista de logados
-            return view('auth/logados');
+            return view('auth/logados'); // Vista si ya está logado
         }
 
-        // Si no está logado le mostramos la vista con el formulario de login
+        // Vista con el formulario de login
         return view('auth/login');
     }
 
@@ -30,23 +29,24 @@ class AuthController extends Controller
     */
     public function login(Request $request)
     {
-        // Comprobamos que el email y la contraseña han sido introducidos
+        // Validar las credenciales
         $request->validate([
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        // Almacenamos las credenciales de email y contraseña
+        // Obtener las credenciales
         $credentials = $request->only('email', 'password');
 
-        // Si el usuario existe lo logamos y lo llevamos a la vista de "logados" con un mensaje
+        // Intentar autenticar al usuario
         if (Auth::attempt($credentials)) {
             return redirect()->intended('logados')
                 ->withSuccess('Logado Correctamente');
         }
 
-        // Si el usuario no existe devolvemos al usuario al formulario de login con un mensaje de error
-        return redirect("/")->withSuccess('Los datos introducidos no son correctos');
+        // Redirigir de vuelta con un mensaje de error
+        return back()->withErrors(['email' => 'Las credenciales son incorrectas.'])
+                     ->withInput($request->only('email')); // Mantener el email ingresado
     }
 
     /**

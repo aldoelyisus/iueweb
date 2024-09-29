@@ -23,22 +23,20 @@ Route::get('/logados', [AuthController::class, 'logados'])->name('logados');
 // CRUD accesible después de la autenticación
 Route::get('/crud', [AuthController::class, 'crud'])->name('crud');
 
-// Página de bienvenida
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
-
 // Página de logout
-Route::get('/logout', function () {
-    return view('logout');
-})->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Página de login
+// Página de login (ajustada a tu estructura de carpetas)
 Route::get('/login', function () {
-    return view('login');
+    return view('login'); // Asegúrate de que esta vista exista en 'resources/views/login.blade.php'
 })->name('login');
 
 // Página de usuario final
 Route::get('/index_usuario', function () {
     return view('index_usuario');
 })->name('index_usuario');
+
+//mandar a inicio botón
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');

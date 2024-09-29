@@ -17,9 +17,9 @@
         </div>
         <h3 class="sidebar-title">Sistema de Configuración</h3>
         <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link text-white" href="index.php">Inicio</a>
-            </li>
+        <li class="nav-item">
+    <a class="nav-link text-white" href="{{ route('logados') }}">Inicio</a>
+</li>
             <li class="nav-item">
                 <h5 class="nav-section-title">Interfaz</h5>
             </li>
