@@ -8,7 +8,7 @@
 .titulo-noticias {
     font-size: 2rem;
     margin-bottom: 2rem;
-    color: var(--color-principal);
+    color: var(--second-bg-color);
 }
 
 .noticias-grid {
@@ -43,7 +43,7 @@
 .contenido-noticia h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--color-principal);
+    color: var(--second-bg-color);
 }
 
 .contenido-noticia p {
