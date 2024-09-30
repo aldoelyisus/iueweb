@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
 /*==================== quita toggle icon y navbar cuando da click  ====================*/
 ScrollReveal({
     reset: true,
-    distance: '80px',
+    distance: '10px',
     duration: 2000,
     delay: 200
    });
