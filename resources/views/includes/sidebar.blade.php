@@ -11,11 +11,9 @@
         <li class="nav-item">
             <h5 class="nav-section-title">Interfaz</h5>
         </li>
+
         <li class="nav-item">
             <a class="nav-link text-white" href="crud.php">CRUD</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{{ route('users.index') }}">Usuarios</a>
         </li>
         <div class="mt-auto"></div>
         <li class="nav-item">

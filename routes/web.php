@@ -5,6 +5,8 @@ use App\Http\Controllers\ImageController; // Asegúrate de importar tu controlad
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\AspiranteController;
+use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ModalidadController;
 
 /*
 |-------------------------------------------------------------------------- 
@@ -59,3 +61,6 @@ Route::get('/aspirantes', [AspiranteController::class, 'index'])->name('aspirant
 
 // Rutas para el CRUD de Servicios
 Route::resource('servicios', ServicioController::class);
+
+// Rutas para el CRUD de Modalidades
+Route::resource('modalidades', ModalidadController::class);

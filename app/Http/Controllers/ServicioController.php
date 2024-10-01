@@ -10,7 +10,12 @@ class ServicioController extends Controller
     public function index()
     {
         $servicios = Servicio::all();
-        return response()->json($servicios);
+        return view('servicios.index', compact('servicios'));
+    }
+
+    public function create()
+    {
+        return view('servicios.create');
     }
 
     public function store(Request $request)
@@ -18,16 +23,23 @@ class ServicioController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
+            'requiere_programas' => 'required|boolean', // Nueva validación
         ]);
 
         $servicio = Servicio::create($request->all());
-        return response()->json($servicio, 201);
+        return redirect()->route('servicios.index');
     }
 
     public function show($id)
     {
         $servicio = Servicio::findOrFail($id);
-        return response()->json($servicio);
+        return view('servicios.show', compact('servicio'));
+    }
+
+    public function edit($id)
+    {
+        $servicio = Servicio::findOrFail($id);
+        return view('servicios.edit', compact('servicio'));
     }
 
     public function update(Request $request, $id)
@@ -35,17 +47,18 @@ class ServicioController extends Controller
         $request->validate([
             'nombre' => 'sometimes|required|string|max:255',
             'descripcion' => 'nullable|string',
+            'requiere_programas' => 'required|boolean', // Nueva validación
         ]);
 
         $servicio = Servicio::findOrFail($id);
         $servicio->update($request->all());
-        return response()->json($servicio);
+        return redirect()->route('servicios.index');
     }
 
     public function destroy($id)
     {
         $servicio = Servicio::findOrFail($id);
         $servicio->delete();
-        return response()->json(null, 204);
+        return redirect()->route('servicios.index');
     }
 }

@@ -2,63 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aspirante;
 use Illuminate\Http\Request;
 
 class AspiranteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $aspirantes = Aspirante::all();
+        return response()->json($aspirantes);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre_completo' => 'required|string|max:255',
+            'edad' => 'required|integer',
+            'telefono' => 'required|string|max:15',
+            'email' => 'required|string|email|max:255|unique:aspirantes,email',
+            'servicio_interes' => 'required|string|max:255',
+        ]);
+
+        $aspirante = Aspirante::create($request->all());
+        return response()->json($aspirante, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $aspirante = Aspirante::findOrFail($id);
+        return response()->json($aspirante);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nombre_completo' => 'sometimes|required|string|max:255',
+            'edad' => 'sometimes|required|integer',
+            'telefono' => 'sometimes|required|string|max:15',
+            'email' => 'sometimes|required|string|email|max:255|unique:aspirantes,email,' . $id,
+            'servicio_interes' => 'sometimes|required|string|max:255',
+        ]);
+
+        $aspirante = Aspirante::findOrFail($id);
+        $aspirante->update($request->all());
+        return response()->json($aspirante);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $aspirante = Aspirante::findOrFail($id);
+        $aspirante->delete();
+        return response()->json(null, 204);
     }
 }
