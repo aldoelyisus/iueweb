@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Modalidad;
 use App\Models\Servicio;
+use App\Models\Programa;
 use Illuminate\Http\Request;
 
 class ModalidadController extends Controller
@@ -16,7 +17,7 @@ class ModalidadController extends Controller
 
     public function create()
     {
-        $servicios = Servicio::where('requiere_programas', false)->get();
+        $servicios = Servicio::all();
         return view('modalidades.create', compact('servicios'));
     }
 
@@ -38,6 +39,7 @@ class ModalidadController extends Controller
             'link_img_extra' => 'nullable|string|max:255',
             'desc_extra' => 'nullable|string',
             'servicio_id' => 'required|exists:servicios,id',
+            'programa_id' => 'nullable|exists:programas,id',
         ]);
 
         $modalidad = Modalidad::create($request->only([
@@ -58,6 +60,10 @@ class ModalidadController extends Controller
         ]));
         $modalidad->servicios()->attach($request->servicio_id);
 
+        if ($request->filled('programa_id')) {
+            $modalidad->programas()->attach($request->programa_id);
+        }
+
         return redirect()->route('modalidades.index');
     }
 
@@ -70,7 +76,7 @@ class ModalidadController extends Controller
     public function edit($id)
     {
         $modalidad = Modalidad::findOrFail($id);
-        $servicios = Servicio::where('requiere_programas', false)->get();
+        $servicios = Servicio::all();
         return view('modalidades.edit', compact('modalidad', 'servicios'));
     }
 
@@ -92,6 +98,7 @@ class ModalidadController extends Controller
             'link_img_extra' => 'nullable|string|max:255',
             'desc_extra' => 'nullable|string',
             'servicio_id' => 'required|exists:servicios,id',
+            'programa_id' => 'nullable|exists:programas,id',
         ]);
 
         $modalidad = Modalidad::findOrFail($id);
@@ -113,6 +120,12 @@ class ModalidadController extends Controller
         ]));
         $modalidad->servicios()->sync($request->servicio_id);
 
+        if ($request->filled('programa_id')) {
+            $modalidad->programas()->sync($request->programa_id);
+        } else {
+            $modalidad->programas()->detach();
+        }
+
         return redirect()->route('modalidades.index');
     }
 
@@ -121,5 +134,12 @@ class ModalidadController extends Controller
         $modalidad = Modalidad::findOrFail($id);
         $modalidad->delete();
         return redirect()->route('modalidades.index');
+    }
+
+    public function getProgramasByServicio($servicio_id)
+    {
+        $servicio = Servicio::findOrFail($servicio_id);
+        $programas = $servicio->programas;
+        return response()->json($programas);
     }
 }

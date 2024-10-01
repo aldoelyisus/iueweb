@@ -33,6 +33,9 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('modalidades.index') }}">Modalidades</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ route('programas.index') }}">Programas</a>
+                </li>
             </ul>
         </li>
         <li class="nav-item">

@@ -1,4 +1,6 @@
-@extends('layout.app')
+@extends('layout')
+
+@section('title', 'Editar Modalidad')
 
 @section('content')
     <h1>Editar Modalidad</h1>
@@ -50,13 +52,56 @@
         
         <label for="servicio_id">Servicio:</label>
         <select name="servicio_id" id="servicio_id" required>
+            <option value="">Seleccione un servicio</option>
             @foreach($servicios as $servicio)
-                <option value="{{ $servicio->id }}" {{ $modalidad->servicios->contains($servicio->id) ? 'selected' : '' }}>
+                <option value="{{ $servicio->id }}" data-requiere-programas="{{ $servicio->requiere_programas }}" {{ $modalidad->servicios->contains($servicio->id) ? 'selected' : '' }}>
                     {{ $servicio->nombre }}
                 </option>
             @endforeach
         </select>
         
+        <div id="programas-container" style="display: none;">
+            <label for="programa_id">Programas:</label>
+            <select name="programa_id" id="programa_id">
+                <!-- Opciones de programas se llenarán dinámicamente -->
+            </select>
+        </div>
+        
         <button type="submit">Actualizar</button>
     </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const servicioSelect = document.getElementById('servicio_id');
+            const programasContainer = document.getElementById('programas-container');
+            const programaSelect = document.getElementById('programa_id');
+
+            function updateProgramas() {
+                const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
+                const requiereProgramas = selectedOption.getAttribute('data-requiere-programas') === '1';
+
+                if (requiereProgramas) {
+                    fetch(`/servicios/${selectedOption.value}/programas`)
+                        .then(response => response.json())
+                        .then(data => {
+                            programaSelect.innerHTML = '';
+                            data.forEach(programa => {
+                                const option = document.createElement('option');
+                                option.value = programa.id;
+                                option.textContent = programa.nombre;
+                                programaSelect.appendChild(option);
+                            });
+                            programasContainer.style.display = 'block';
+                        });
+                } else {
+                    programasContainer.style.display = 'none';
+                }
+            }
+
+            servicioSelect.addEventListener('change', updateProgramas);
+
+            // Inicializar la selección de programas si el servicio seleccionado requiere programas
+            updateProgramas();
+        });
+    </script>
 @endsection

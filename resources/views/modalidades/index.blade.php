@@ -9,8 +9,8 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
+                <th>Título</th>
+                <th>Servicios/Programas</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -18,8 +18,15 @@
             @foreach($modalidades as $modalidad)
                 <tr>
                     <td>{{ $modalidad->id }}</td>
-                    <td>{{ $modalidad->nombre }}</td>
-                    <td>{{ $modalidad->descripcion }}</td>
+                    <td>{{ $modalidad->titulo }}</td>
+                    <td>
+                        @foreach($modalidad->servicios as $servicio)
+                            <strong>Servicio:</strong> {{ $servicio->nombre }}<br>
+                            @foreach($servicio->programas as $programa)
+                                <strong>Programa:</strong> {{ $programa->nombre }}<br>
+                            @endforeach
+                        @endforeach
+                    </td>
                     <td>
                         <a href="{{ route('modalidades.edit', $modalidad->id) }}" class="btn btn-warning">Editar</a>
                         <form action="{{ route('modalidades.destroy', $modalidad->id) }}" method="POST" style="display:inline;">

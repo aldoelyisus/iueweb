@@ -7,6 +7,7 @@ use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\AspiranteController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ModalidadController;
+use App\Http\Controllers\ProgramaController;
 
 /*
 |-------------------------------------------------------------------------- 
@@ -64,3 +65,7 @@ Route::resource('servicios', ServicioController::class);
 
 // Rutas para el CRUD de Modalidades
 Route::resource('modalidades', ModalidadController::class);
+Route::get('servicios/{servicio}/programas', [ModalidadController::class, 'getProgramasByServicio']);
+
+// Rutas para el CRUD de Programas
+Route::resource('programas', ProgramaController::class);
