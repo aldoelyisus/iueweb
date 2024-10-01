@@ -10,7 +10,8 @@
             <tr>
                 <th>ID</th>
                 <th>Título</th>
-                <th>Servicios/Programas</th>
+                <th>Servicios</th>
+                <th>Programas</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -22,10 +23,16 @@
                     <td>
                         @foreach($modalidad->servicios as $servicio)
                             <strong>Servicio:</strong> {{ $servicio->nombre }}<br>
-                            @foreach($servicio->programas as $programa)
+                        @endforeach
+                    </td>
+                    <td>
+                        @if($modalidad->programas->isEmpty())
+                            <em>No asociado a un programa</em>
+                        @else
+                            @foreach($modalidad->programas as $programa)
                                 <strong>Programa:</strong> {{ $programa->nombre }}<br>
                             @endforeach
-                        @endforeach
+                        @endif
                     </td>
                     <td>
                         <a href="{{ route('modalidades.edit', $modalidad->id) }}" class="btn btn-warning">Editar</a>

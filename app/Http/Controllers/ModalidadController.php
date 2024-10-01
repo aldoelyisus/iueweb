@@ -11,7 +11,7 @@ class ModalidadController extends Controller
 {
     public function index()
     {
-        $modalidades = Modalidad::all();
+        $modalidades = Modalidad::with('servicios.programas')->get();
         return view('modalidades.index', compact('modalidades'));
     }
 
@@ -83,7 +83,7 @@ class ModalidadController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'titulo' => 'sometimes|required|string|max:255',
+            'titulo' => 'required|string|max:255',
             'subtitulo' => 'nullable|string|max:255',
             'titulo_perfil_ingreso' => 'nullable|string|max:255',
             'desc_perfil_ingreso' => 'nullable|string',

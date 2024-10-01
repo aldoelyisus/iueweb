@@ -41,4 +41,9 @@ class Modalidad extends Model
     {
         return $this->belongsToMany(Servicio::class, 'servicio_modalidad');
     }
+
+    public function programas()
+    {
+        return $this->belongsToMany(Programa::class, 'modalidad_programa');
+    }
 }
