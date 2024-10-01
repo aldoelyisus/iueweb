@@ -14,7 +14,6 @@ class ModifyModalidadesTable extends Migration
     public function up()
     {
         Schema::table('modalidades', function (Blueprint $table) {
-            $table->dropColumn(['nombre', 'descripcion']);
             $table->string('titulo')->nullable();
             $table->string('subtitulo')->nullable();
             $table->string('titulo_perfil_ingreso')->nullable();
@@ -40,8 +39,6 @@ class ModifyModalidadesTable extends Migration
     public function down()
     {
         Schema::table('modalidades', function (Blueprint $table) {
-            $table->string('nombre')->nullable();
-            $table->text('descripcion')->nullable();
             $table->dropColumn([
                 'titulo',
                 'subtitulo',

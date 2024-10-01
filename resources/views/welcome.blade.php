@@ -72,7 +72,7 @@
                     <a href="#tutorial">Tutorial</a>
                 </div>
             </div>
-            <a href="contacto.html" class="smooth-scroll">Contáctanos</a>
+            <a href="{{ route('contacto') }}" class="smooth-scroll">Contáctanos</a>
 
             <div class="social-media">
                 <a href="https://www.facebook.com/p/Instituto-Universitario-Enlace-100069745053476/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>

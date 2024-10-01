@@ -24,4 +24,9 @@ class Programa extends Model
     {
         return $this->belongsToMany(Modalidad::class, 'modalidad_programa');
     }
+
+    public function aspirantes()
+    {
+        return $this->belongsToMany(Aspirante::class, 'aspirante_programa');
+    }
 }

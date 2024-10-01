@@ -34,9 +34,9 @@
         <div class="dashboard-widgets">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Ir al CRUD</h5>
-                    <p class="card-text">Accede a la sección de CRUD para gestionar los datos del sistema.</p>
-                    <a href="{{ route('crud') }}" class="btn btn-primary">Ir al CRUD</a>
+                    <h5 class="card-title">Ir al Índice de Aspirantes</h5>
+                    <p class="card-text">Accede a la sección de aspirantes para gestionar los datos del sistema.</p>
+                    <a href="{{ route('aspirantes.index') }}" class="btn btn-primary">Ir al Índice de Aspirantes</a>
                 </div>
             </div>
         </div>

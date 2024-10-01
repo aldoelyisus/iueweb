@@ -1,5 +1,5 @@
 <?php
-
+// app/Models/Aspirante.php
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,15 +10,22 @@ class Aspirante extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'aspirantes'; // Nombre de la tabla
-
     protected $fillable = [
-        'nombre_completo',
+        'nombrecompleto',
         'edad',
         'telefono',
         'email',
-        'servicio_interes',
+        'nombre_servicio',
+        'nombre_programa',
     ];
 
-    protected $dates = ['deleted_at'];
+    public function servicios()
+    {
+        return $this->belongsToMany(Servicio::class, 'aspirante_servicio');
+    }
+
+    public function programas()
+    {
+        return $this->belongsToMany(Programa::class, 'aspirante_programa');
+    }
 }
