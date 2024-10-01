@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ImageController; // Asegúrate de importar tu controlador de imágenes
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\AspiranteController;
 
 /*
 |-------------------------------------------------------------------------- 
@@ -49,3 +51,11 @@ Route::get('/', function () {
 
 
 Route::post('/upload-image', [BannerController::class, 'uploadImage'])->name('upload_image');
+
+
+
+// Rutas para el CRUD de Aspirantes
+Route::get('/aspirantes', [AspiranteController::class, 'index'])->name('aspirantes.index');
+
+// Rutas para el CRUD de Servicios
+Route::resource('servicios', ServicioController::class);
