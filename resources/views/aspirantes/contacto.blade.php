@@ -18,7 +18,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-    <title>Instituto Universitario Enlace</title>
+    <title>Instituto Universitario Enlace - Contacto</title>
    
     <!-- Solo usa Vite para cargar tus archivos CSS y JS -->
     @vite('resources/css/app.css')
@@ -52,9 +52,41 @@
 <div class="main-content">
     <section id="contacto_scroll" class="contenedor-contacto fade-in">
         <h2 class="titulo-contacto side-left">Contáctanos</h2>
-        <form action="{{ route('aspirantes.store') }}" method="POST">
+        <form action="{{ route('contacto.enviar') }}" method="POST">
             @csrf
-            @include('aspirantes.form', ['servicios' => $servicios, 'programas' => $programas])
+            <div class="form-group">
+                <label for="nombrecompleto">Nombre Completo</label>
+                <input type="text" name="nombrecompleto" id="nombrecompleto" class="form-control" value="{{ old('nombrecompleto') }}">
+            </div>
+            <div class="form-group">
+                <label for="edad">Edad</label>
+                <input type="number" name="edad" id="edad" class="form-control" value="{{ old('edad') }}">
+            </div>
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="text" name="telefono" id="telefono" class="form-control" value="{{ old('telefono') }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
+            </div>
+            <div class="form-group">
+                <label for="servicio_id">Servicio de Interés</label>
+                <select name="servicio_id" id="servicio_id" class="form-control">
+                    <option value="">Seleccione un servicio</option>
+                    @foreach($servicios as $servicio)
+                        <option value="{{ $servicio->id }}" data-requiere-programas="{{ $servicio->requiere_programas }}">
+                            {{ $servicio->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group" id="programas-container" style="display: none;">
+                <label for="programa_id">Programa de Interés</label>
+                <select name="programa_id" id="programa_id" class="form-control">
+                    <!-- Opciones de programas se llenarán dinámicamente -->
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </section>
@@ -90,26 +122,33 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const servicioSelect = document.getElementById('servicio_interes');
-        const programaSelect = document.getElementById('programa_interes');
-        const programaGroup = document.getElementById('programa_interes_group');
+        const servicioSelect = document.getElementById('servicio_id');
+        const programasContainer = document.getElementById('programas-container');
+        const programaSelect = document.getElementById('programa_id');
+
+        function loadProgramas(servicioId) {
+            fetch(`/servicios/${servicioId}/programas`)
+                .then(response => response.json())
+                .then(data => {
+                    programaSelect.innerHTML = '';
+                    data.forEach(programa => {
+                        const option = document.createElement('option');
+                        option.value = programa.id;
+                        option.textContent = programa.nombre;
+                        programaSelect.appendChild(option);
+                    });
+                    programasContainer.style.display = 'block';
+                });
+        }
 
         servicioSelect.addEventListener('change', function () {
-            const selectedServicio = this.value;
-            if (selectedServicio) {
-                const programas = programaSelect.querySelectorAll('option');
-                let hasProgramas = false;
-                programas.forEach(option => {
-                    if (option.getAttribute('data-servicio') == selectedServicio) {
-                        option.style.display = 'block';
-                        hasProgramas = true;
-                    } else {
-                        option.style.display = 'none';
-                    }
-                });
-                programaGroup.style.display = hasProgramas ? 'block' : 'none';
+            const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
+            const requiereProgramas = selectedOption.getAttribute('data-requiere-programas') === '1';
+
+            if (requiereProgramas) {
+                loadProgramas(selectedOption.value);
             } else {
-                programaGroup.style.display = 'none';
+                programasContainer.style.display = 'none';
             }
         });
     });

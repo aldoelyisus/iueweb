@@ -497,7 +497,10 @@ span {
         column-gap: 2rem;
     }
 
-
+    .btn-small {
+        width: 75px; /* Ajusta el ancho según sea necesario */
+        padding: 5px; /* Ajusta el padding según sea necesario */
+    }
 
     .menu-btn {
         display: block;

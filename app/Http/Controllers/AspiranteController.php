@@ -21,6 +21,12 @@ class AspiranteController extends Controller
         return view('aspirantes.create', compact('servicios'));
     }
 
+     public function contacto()
+    {
+        $servicios = Servicio::all();
+        return view('aspirantes.contacto', compact('servicios'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -45,6 +51,30 @@ class AspiranteController extends Controller
         ]);
 
         return redirect()->route('aspirantes.index');
+    }
+
+    public function enviarContacto(Request $request)
+    {
+        $request->validate([
+            'nombrecompleto' => 'required|string|max:255',
+            'edad' => 'required|integer',
+            'telefono' => 'required|string|max:15',
+            'email' => 'required|email|max:255',
+            'servicio_id' => 'required|exists:servicios,id',
+            'programa_id' => 'nullable|exists:programas,id',
+        ]);
+
+        // Lógica para manejar el envío del formulario de contacto
+        Aspirante::create([
+            'nombrecompleto' => $request->nombrecompleto,
+            'edad' => $request->edad,
+            'telefono' => $request->telefono,
+            'email' => $request->email,
+            'servicio_id' => $request->servicio_id,
+            'programa_id' => $request->programa_id,
+        ]);
+
+        return redirect()->route('welcome')->with('success', 'Mensaje enviado correctamente.');
     }
 
     public function show($id)

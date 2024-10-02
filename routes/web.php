@@ -64,10 +64,9 @@ Route::get('/servicios/{servicio}/programas', [AspiranteController::class, 'getP
 Route::resource('aspirantes', AspiranteController::class);
 
 // Ruta para el formulario de aspirantes
-Route::get('/contacto', function () {
-    return view('aspirantes.contacto');
-})->name('contacto');
-Route::get('/contacto', [AspiranteController::class, 'create'])->name('contacto');
+Route::get('/contacto', [AspiranteController::class, 'contacto'])->name('contacto');
+Route::post('/contacto/enviar', [AspiranteController::class, 'enviarContacto'])->name('contacto.enviar');
+Route::get('/servicios/{servicio}/programas', [AspiranteController::class, 'getProgramasByServicio']);
 
 // Rutas para el CRUD de Servicios
 Route::resource('servicios', ServicioController::class);
