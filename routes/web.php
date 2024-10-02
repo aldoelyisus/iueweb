@@ -58,10 +58,15 @@ Route::post('/upload-image', [BannerController::class, 'uploadImage'])->name('up
 
 
 // Rutas para el CRUD de Aspirantes
+Route::get('/aspirantes', [AspiranteController::class, 'index'])->name('aspirantes.index');
 Route::get('/aspirantes/create', [AspiranteController::class, 'create'])->name('aspirantes.create');
 Route::post('/aspirantes', [AspiranteController::class, 'store'])->name('aspirantes.store');
 Route::get('/servicios/{servicio}/programas', [AspiranteController::class, 'getProgramasByServicio']);
-Route::resource('aspirantes', AspiranteController::class);
+Route::get('/aspirantes/{aspirante}', [AspiranteController::class, 'show'])->name('aspirantes.show');
+Route::get('/aspirantes/{aspirante}/edit', [AspiranteController::class, 'edit'])->name('aspirantes.edit');
+Route::put('/aspirantes/{aspirante}', [AspiranteController::class, 'update'])->name('aspirantes.update');
+Route::delete('/aspirantes/{aspirante}', [AspiranteController::class, 'destroy'])->name('aspirantes.destroy');
+
 
 // Ruta para el formulario de aspirantes
 Route::get('/contacto', [AspiranteController::class, 'contacto'])->name('contacto');

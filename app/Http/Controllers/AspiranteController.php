@@ -9,10 +9,28 @@ use Illuminate\Http\Request;
 
 class AspiranteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $aspirantes = Aspirante::all();
-        return view('aspirantes.index', compact('aspirantes'));
+        $servicios = Servicio::all();
+        $programas = Programa::all();
+
+        $aspirantes = Aspirante::query();
+
+        if ($request->filled('nombre_servicio')) {
+            $aspirantes->where('nombre_servicio', $request->nombre_servicio);
+        }
+
+        if ($request->filled('nombre_programa')) {
+            $aspirantes->where('nombre_programa', $request->nombre_programa);
+        }
+
+        if ($request->filled('nombrecompleto')) {
+            $aspirantes->where('nombrecompleto', 'like', '%' . $request->nombrecompleto . '%');
+        }
+
+        $aspirantes = $aspirantes->get();
+
+        return view('aspirantes.index', compact('aspirantes', 'servicios', 'programas'));
     }
 
     public function create()
@@ -21,7 +39,7 @@ class AspiranteController extends Controller
         return view('aspirantes.create', compact('servicios'));
     }
 
-     public function contacto()
+    public function contacto()
     {
         $servicios = Servicio::all();
         return view('aspirantes.contacto', compact('servicios'));
@@ -64,6 +82,9 @@ class AspiranteController extends Controller
             'programa_id' => 'nullable|exists:programas,id',
         ]);
 
+        $servicio = Servicio::findOrFail($request->servicio_id);
+        $programa = $request->filled('programa_id') ? Programa::findOrFail($request->programa_id) : null;
+
         // Lógica para manejar el envío del formulario de contacto
         Aspirante::create([
             'nombrecompleto' => $request->nombrecompleto,
@@ -72,6 +93,8 @@ class AspiranteController extends Controller
             'email' => $request->email,
             'servicio_id' => $request->servicio_id,
             'programa_id' => $request->programa_id,
+            'nombre_servicio' => $servicio->nombre,
+            'nombre_programa' => $programa ? $programa->nombre : null,
         ]);
 
         return redirect()->route('welcome')->with('success', 'Mensaje enviado correctamente.');
