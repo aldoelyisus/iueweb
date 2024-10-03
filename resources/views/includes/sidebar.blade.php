@@ -26,6 +26,9 @@
         <li class="nav-item">
             <a class="nav-link text-white" href="{{ route('crud') }}">CRUD</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" href="{{ route('conocenos_mas.index') }}">Conócenos Más</a>
+        </li>
         <div class="mt-auto"></div>
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST" style="display: inline;">

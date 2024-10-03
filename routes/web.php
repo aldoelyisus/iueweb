@@ -9,6 +9,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ModalidadController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ConocenosMasController;
 
 /*
 |-------------------------------------------------------------------------- 
@@ -90,3 +91,6 @@ Route::get('/test-upload', function () {
 });
 
 Route::post('/upload', [FileController::class, 'store']);
+
+// Rutas para el CRUD de ConocenosMas
+Route::resource('conocenos_mas', ConocenosMasController::class);
