@@ -1,10 +1,9 @@
-<!-- resources/views/aspirantes/create.blade.php -->
 @extends('layout')
 
 @section('content')
 <div class="container">
     <h1>Nuevo Aspirante</h1>
-    <form action="{{ route('aspirantes.store') }}" method="POST">
+    <form id="aspirante-form" action="{{ route('aspirantes.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="nombrecompleto">Nombre Completo</label>
@@ -43,11 +42,14 @@
     </form>
 </div>
 
+<!-- Incluir SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const servicioSelect = document.getElementById('servicio_id');
         const programasContainer = document.getElementById('programas-container');
         const programaSelect = document.getElementById('programa_id');
+        const aspiranteForm = document.getElementById('aspirante-form');
 
         servicioSelect.addEventListener('change', function () {
             const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
@@ -68,6 +70,30 @@
                     });
             } else {
                 programasContainer.style.display = 'none';
+            }
+        });
+
+        aspiranteForm.addEventListener('submit', function (event) {
+            // Verificar si algún campo está vacío
+            const nombreCompleto = document.getElementById('nombrecompleto').value.trim();
+            const edad = document.getElementById('edad').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const servicioId = document.getElementById('servicio_id').value;
+
+            if (!nombreCompleto || !edad || !telefono || !email || !servicioId) {
+                event.preventDefault(); // Evitar que se envíe el formulario
+                Swal.fire({
+                    icon: 'error',
+                    title: '¡Error!',
+                    text: 'Por favor, completa todos los campos obligatorios.',
+                });
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Éxito!',
+                    text: 'El aspirante se ha guardado correctamente.',
+                });
             }
         });
     });

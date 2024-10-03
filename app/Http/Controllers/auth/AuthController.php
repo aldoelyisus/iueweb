@@ -34,20 +34,26 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         // Obtener las credenciales
         $credentials = $request->only('email', 'password');
-
+    
         // Intentar autenticar al usuario
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('logados')
-                ->withSuccess('Logado Correctamente');
+            // Mensaje de bienvenida personalizado
+            $request->session()->flash('success', 'Bienvenido al administrador');
+            
+            // Redirigir a una página donde se mostrará el mensaje y luego redirigir a la página deseada
+            return redirect()->route('login'); // O cualquier otra ruta temporal
         }
-
+    
         // Redirigir de vuelta con un mensaje de error
-        return back()->withErrors(['email' => 'Las credenciales son incorrectas.'])
+        return back()->withErrors(['email' => 'Usuario o Contraseña incorrecta.'])
                      ->withInput($request->only('email')); // Mantener el email ingresado
     }
+    
+
+    
 
     /**
     * Función que muestra la vista de logados si el usuario está logado y si no le devuelve al formulario de login
@@ -109,5 +115,20 @@ class AuthController extends Controller
     return redirect()->back()->with('success', 'Imagen reemplazada exitosamente.');
 }
 
+public function store(Request $request)
+{
+    // Validar los datos
+    $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'nullable|string',
+        'servicio_id' => 'required|exists:servicios,id',
+    ]);
+
+    // Crear el programa
+    Programa::create($request->all());
+
+    // Redirigir con un mensaje de éxito
+    return redirect()->route('programas.index')->with('success', 'Programa creado exitosamente.');
+}
 
 }

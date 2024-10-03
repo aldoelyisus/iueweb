@@ -1,4 +1,3 @@
-<!-- resources/views/aspirantes/contacto.blade.php -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,6 +7,12 @@
     
     <!-- box icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     
     <!-- Icono FiveIcon -->
     <link rel="icon" href="{{ asset('img/LogoF.jpg') }}" sizes="32x32" type="image/png">
@@ -19,8 +24,9 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     <title>Instituto Universitario Enlace - Contacto</title>
+
+    
    
-    <!-- Solo usa Vite para cargar tus archivos CSS y JS -->
     @vite('resources/css/app.css')
     @vite('resources/css/noticias.css')
     @vite('resources/js/app.js')
@@ -32,48 +38,102 @@
     <meta property="og:type" content="website">
 
     <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f4f4f4; /* Color de fondo claro para un diseño minimalista */
+        }
+
+     
+        
+        .main-content {
+            max-width: 600px; /* Ancho máximo del formulario */
+            margin: 2rem auto; /* Centrar el formulario en la página */
+            padding: 2rem;
+            background-color: white; /* Fondo blanco para el contenido del formulario */
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidad */
+        }
+
+        .titulo-contacto {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #333; /* Color de texto oscuro para mejor contraste */
+        }
+
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
             color: #000; /* Asegúrate de que el color del texto sea visible */
         }
+
         .form-group input, .form-group select {
             width: 100%;
             padding: 0.5rem;
             margin-bottom: 1rem;
             border: 1px solid #ccc;
             border-radius: 4px;
+            transition: border-color 0.3s; /* Animación para el cambio de color del borde */
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: #007bff; /* Color del borde al hacer foco */
+            outline: none; /* Eliminar el contorno predeterminado */
+        }
+
+        .form-group input::placeholder, .form-group select::placeholder {
+            color: #999; /* Color de los placeholders */
+            opacity: 1; /* Asegúrate de que sean totalmente opacos */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Color de fondo del botón */
+            border: none; /* Sin borde */
+            transition: background-color 0.3s; /* Animación para el color de fondo */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Color del botón al pasar el mouse */
+        }
+
+        dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 0rem;
         }
     </style>
 </head>
 <body>
+@include('includes.navbar')
 
+<br>
+<br>
+<br>
 <div class="main-content">
     <section id="contacto_scroll" class="contenedor-contacto fade-in">
         <h2 class="titulo-contacto side-left">Contáctanos</h2>
-        <form action="{{ route('contacto.enviar') }}" method="POST">
+        <form id="contact-form" action="{{ route('contacto.enviar') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="nombrecompleto">Nombre Completo</label>
-                <input type="text" name="nombrecompleto" id="nombrecompleto" class="form-control" value="{{ old('nombrecompleto') }}">
+                <input type="text" name="nombrecompleto" id="nombrecompleto" class="form-control" placeholder="Ingresa tu nombre completo" value="{{ old('nombrecompleto') }}">
             </div>
             <div class="form-group">
                 <label for="edad">Edad</label>
-                <input type="number" name="edad" id="edad" class="form-control" value="{{ old('edad') }}">
+                <input type="number" name="edad" id="edad" class="form-control" placeholder="Ingresa tu edad" value="{{ old('edad') }}">
             </div>
             <div class="form-group">
                 <label for="telefono">Teléfono</label>
-                <input type="text" name="telefono" id="telefono" class="form-control" value="{{ old('telefono') }}">
+                <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Ingresa tu número de teléfono" value="{{ old('telefono') }}">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
             </div>
             <div class="form-group">
                 <label for="servicio_id">Servicio de Interés</label>
                 <select name="servicio_id" id="servicio_id" class="form-control">
-                    <option value="">Seleccione un servicio</option>
+                    <option value="" disabled selected>Seleccione un servicio</option>
                     @foreach($servicios as $servicio)
                         <option value="{{ $servicio->id }}" data-requiere-programas="{{ $servicio->requiere_programas }}">
                             {{ $servicio->nombre }}
@@ -84,6 +144,7 @@
             <div class="form-group" id="programas-container" style="display: none;">
                 <label for="programa_id">Programa de Interés</label>
                 <select name="programa_id" id="programa_id" class="form-control">
+                    <option value="" disabled selected>Seleccione un programa</option>
                     <!-- Opciones de programas se llenarán dinámicamente -->
                 </select>
             </div>
@@ -93,20 +154,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="footer">
-    <div class="contenedor">
-        <div class="logo fade-in">
-            <img src="{{ asset('img/Logo_IUE.png') }}" alt="Instituto Universitario Enlace">
-        </div>
-        <p class="side-left">&copy; 2024 Instituto Universitario Enlace. Todos los derechos reservados.</p>
-        <p class="side-right"><a href="#contacto_scroll" class="smooth-scroll">Contáctanos</a> | <a href="#privacy_policy" class="smooth-scroll">Política de Privacidad</a></p>
-        <div class="social-media side-down">
-            <a href="https://www.facebook.com/p/Instituto-Universitario-Enlace-100069745053476/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/15549174404" target="_blank" aria-label="whatsapp"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.youtube.com/@IUE_edu" target="_blank" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
-        </div>
-    </div>
-</footer>
+@include('includes.footer')
 <!-- Fin de footer -->
 
 <!-- scroll reveal -->
@@ -119,36 +167,48 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const servicioSelect = document.getElementById('servicio_id');
-        const programasContainer = document.getElementById('programas-container');
-        const programaSelect = document.getElementById('programa_id');
+        const form = document.querySelector('form');
 
-        function loadProgramas(servicioId) {
-            fetch(`/servicios/${servicioId}/programas`)
-                .then(response => response.json())
-                .then(data => {
-                    programaSelect.innerHTML = '';
-                    data.forEach(programa => {
-                        const option = document.createElement('option');
-                        option.value = programa.id;
-                        option.textContent = programa.nombre;
-                        programaSelect.appendChild(option);
-                    });
-                    programasContainer.style.display = 'block';
+        form.addEventListener('submit', function (event) {
+            let isValid = true; // Inicializar la validez en verdadero
+
+            // Comprobar que todos los campos requeridos estén llenos
+            const fields = [
+                'nombrecompleto',
+                'edad',
+                'telefono',
+                'email',
+                'servicio_id',
+            ];
+
+            fields.forEach(function (field) {
+                const input = document.getElementById(field);
+                if (!input.value) { // Si el campo está vacío
+                    isValid = false; // Cambiar la validez a falso
+                    input.classList.add('is-invalid'); // Agregar clase de error
+                } else {
+                    input.classList.remove('is-invalid'); // Quitar clase de error si ya está lleno
+                }
+            });
+
+            // Si no es válido, evita el envío del formulario
+            if (!isValid) {
+                event.preventDefault(); // Evitar el envío
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Por favor, complete todos los campos requeridos.",
                 });
-        }
-
-        servicioSelect.addEventListener('change', function () {
-            const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
-            const requiereProgramas = selectedOption.getAttribute('data-requiere-programas') === '1';
-
-            if (requiereProgramas) {
-                loadProgramas(selectedOption.value);
             } else {
-                programasContainer.style.display = 'none';
+                // Si el formulario es válido, muestra la alerta de éxito
+                event.preventDefault(); // Evitar el envío para mostrar el alert
+                Swal.fire({
+                    title: "¡Buen trabajo!",
+                    text: "Los datos se han enviado correctamente.",
+                    icon: "success"
+                })
             }
         });
     });

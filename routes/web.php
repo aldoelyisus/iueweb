@@ -47,6 +47,8 @@ Route::get('/index_usuario', function () {
 // Ruta para manejar la carga de imágenes
 Route::post('/upload-image', [ImageController::class, 'upload'])->name('upload_image');
 
+Route::post('/verificar-duplicados', 'AspiranteController@verificarDuplicados');
+
 //mandar a inicio botón
 Route::get('/', function () {
     return view('welcome');

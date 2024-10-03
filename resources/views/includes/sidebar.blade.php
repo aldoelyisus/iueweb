@@ -31,10 +31,29 @@
         </li>
         <div class="mt-auto"></div>
         <li class="nav-item">
-            <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
                 @csrf <!--token de seguridad -->
-                <button type="submit" class="nav-link text-white" style="background: none; border: none; cursor: pointer;">Cerrar sesión</button>
+                <button type="button" class="nav-link text-white" style="background: none; border: none; cursor: pointer;" onclick="confirmLogout()">Cerrar sesión</button>
             </form>
         </li>
     </ul>
 </div>
+
+<!-- Incluir SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function confirmLogout() {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¿Deseas cerrar sesión?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, cerrar sesión',
+            cancelButtonText: 'No, cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();
+            }
+        });
+    }
+</script>

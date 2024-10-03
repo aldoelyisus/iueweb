@@ -5,7 +5,7 @@
 <div class="container">
     <h1>Aspirantes</h1>
     <a href="{{ route('aspirantes.create') }}" class="btn btn-primary">Nuevo Aspirante</a>
-
+    <br><br>
     <div class="mb-4">
         <div class="form-row">
             <div class="col">

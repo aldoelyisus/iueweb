@@ -14,10 +14,14 @@ class CreateModalidadProgramaTable extends Migration
     public function up()
     {
         Schema::create('modalidad_programa', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('modalidad_id')->constrained('modalidades')->onDelete('cascade');
-            $table->foreignId('programa_id')->constrained('programas')->onDelete('cascade');
-            $table->timestamps();
+            $table->id(); // Crea la columna 'id'
+            $table->foreignId('modalidad_id') // Crea la columna 'modalidad_id'
+                  ->constrained('modalidades') // Referencia la tabla 'modalidades'
+                  ->onDelete('cascade'); // Elimina registros relacionados en cascada
+            $table->foreignId('programa_id') // Crea la columna 'programa_id'
+                  ->constrained('programas') // Referencia la tabla 'programas'
+                  ->onDelete('cascade'); // Elimina registros relacionados en cascada
+            $table->timestamps(); // Crea las columnas 'created_at' y 'updated_at'
         });
     }
 
@@ -28,6 +32,6 @@ class CreateModalidadProgramaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('modalidad_programa');
+        Schema::dropIfExists('modalidad_programa'); // Elimina la tabla al revertir la migración
     }
 }

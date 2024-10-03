@@ -19,6 +19,7 @@
     @vite('resources/css/app.css')
     @vite('resources/css/noticias.css')
     @vite('resources/js/app.js')
+    
 
     <meta property="og:title" content="Instituto Universitario Enlace">
     <meta property="og:description" content="Bienvenido al Instituto Universitario Enlace, donde la educación en línea se encuentra con la innovación y el desarrollo profesional.">
@@ -28,62 +29,15 @@
 </head>
 <body>
 
+
+
 <!-- Pantalla de carga -->
 <div id="loading">
     <img src="img/LogoF.jpg" alt="Cargando...">
+    
 </div>
 
-<header class="cabeza">
-    <div class="barra">
-    <div class="logo">
-    <a href="{{ route('login') }}"> <!-- Cambia esto para redirigir al login de Laravel -->
-        <img src="{{ asset('img/Logo_IUE.png') }}" alt="Logo">
-    </a>
-</div>
-
-        <img class="menu-btn" id="menu-btn" src="{{ asset('img/Menu-w.png') }}" alt="Menú">
-        <nav class="barra-principal" id="barra-principal">
-            <a href="#contacto_scroll" class="smooth-scroll">Inicio</a>
-            <!-- Dropdown "desglozar contenido" -->
-            <div class="dropdown"> 
-                <ul id="plantel" class="smooth-scroll">Nuestro Plantel</ul>
-                <div class="dropdown-content">
-                    <a href="#mision">Misión</a>
-                    <a href="#vision">Visión</a>
-                    <a href="#valores">Valores</a>
-                </div>
-            </div>
-            <!-- Dropdown "desglozar contenido" -->
-            <div class="dropdown">
-                <ul id="oferta" class="smooth-scroll">Oferta Académica</ul>
-                <div class="dropdown-content">
-                    <a href="Oferta_Academica/secundaria.html">Secundaria</a>
-                    <a href="Oferta_Academica/bachillerato.html">Bachillerato</a>
-                    <a href="Oferta_Academica/licenciaturas.html">Licenciaturas</a>
-                    <a href="Oferta_Academica/maestrias.html">Maestrías</a>
-                </div>
-            </div>
-            <!-- Dropdown "desglozar contenido" -->
-            <div class="dropdown">
-                <ul id="plataforma" class="smooth-scroll">Plataforma Educativa</ul>
-                <div class="dropdown-content">
-                    <a href="#beneficios">Beneficios</a>
-                    <a href="#aplicada">Plataforma Aplicada</a>
-                    <a href="#tutorial">Tutorial</a>
-                </div>
-            </div>
-            <a href="{{ route('contacto') }}" class="smooth-scroll">Contáctanos</a>
-
-            <div class="social-media">
-                <a href="https://www.facebook.com/p/Instituto-Universitario-Enlace-100069745053476/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://wa.me/15549174404" target="_blank" aria-label="whatsapp"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.youtube.com/@IUE_edu" target="_blank" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
-            </div>
-        </nav>
-    </div>
-</header>
-<!-- Fin del encabezado Menú -->
-
+@include('includes.navbar')
 <!-- Inicio de Slider y cuerpo -->
 <section class="contenedor-slider contenedor fade-in">
     <!-- Contenedor de imágenes -->
@@ -176,25 +130,7 @@
     </div>
 </section>
 
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="contenedor">
-        <div class="logo fade-in">
-            <img src="{{ asset('img/Logo_IUE.png') }}" alt="Instituto Universitario Enlace">
-        </div>
-        <p class="side-left">&copy; 2024 Instituto Universitario Enlace. Todos los derechos reservados.</p>
-        <p class="side-right"><a href="#contacto_scroll" class="smooth-scroll">Contáctanos</a> | <a href="#privacy_policy" class="smooth-scroll">Política de Privacidad</a></p>
-        <div class="social-media side-down">
-            <a href="https://www.facebook.com/p/Instituto-Universitario-Enlace-100069745053476/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://wa.me/15549174404" target="_blank" aria-label="whatsapp"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.youtube.com/@IUE_edu" target="_blank" aria-label="Youtube"><i class="fab fa-youtube"></i></a>
-        </div>
-    </div>
-</footer>
-<!-- Fin de footer -->
-
-
+@include('includes.footer')
 
 
   <!-- scroll reveal -->
@@ -202,6 +138,8 @@
 
 <div id="app"></div>
 <script src="/scripts.js"></script> <!-- Ruta corregida para scripts.js -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </body>
 </html>

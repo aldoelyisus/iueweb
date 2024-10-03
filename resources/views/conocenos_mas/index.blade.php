@@ -5,7 +5,7 @@
 @section('content')
     <h1>Conócenos Más</h1>
     <a href="{{ route('conocenos_mas.create') }}" class="btn btn-primary">Crear Nuevo</a>
-    <table class="table mt-3">
+    <table class="table table-rounded mt-3">
         <thead>
             <tr>
                 <th>ID</th>
@@ -34,14 +34,33 @@
                     <td>
                         <a href="{{ route('conocenos_mas.show', $item->id) }}" class="btn btn-info">Ver</a>
                         <a href="{{ route('conocenos_mas.edit', $item->id) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('conocenos_mas.destroy', $item->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ route('conocenos_mas.destroy', $item->id) }}')">Eliminar</button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <!-- Incluye SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <script>
+        function confirmDelete(url) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "No podrás recuperar este elemento después de eliminarlo.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminarlo!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Redirige a la URL para eliminar el item
+                    document.location.href = url;
+                }
+            });
+        }
+    </script>
 @endsection

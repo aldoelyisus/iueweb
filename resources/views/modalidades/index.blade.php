@@ -3,7 +3,8 @@
 @section('title', 'Modalidades')
 
 @section('content')
-    <h1>Modalidades</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Modalidades</h1>
     <a href="{{ route('modalidades.create') }}" class="btn btn-primary mb-3">Añadir Modalidad</a>
     <table class="table table-striped">
         <thead>
@@ -35,15 +36,45 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('modalidades.edit', $modalidad->id) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('modalidades.destroy', $modalidad->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
+                        <a href="{{ route('modalidades.edit', $modalidad->id) }}" class="btn btn-warning btn-sm">Editar</a>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('{{ route('modalidades.destroy', $modalidad->id) }}')">Eliminar</button>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+</div>
+
+<!-- Incluir SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function confirmDelete(url) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás recuperar esta modalidad después de eliminarla.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'btn btn-danger',
+                cancelButton: 'btn btn-secondary'
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, se redirige a la URL de eliminación
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = url;
+                form.innerHTML = `
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="_method" value="DELETE">
+                `;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>
 @endsection

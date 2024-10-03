@@ -10,28 +10,7 @@
 </head>
 <body>
 
-<div id="sidebar" class="sidebar">
-    <div class="logo">
-        <img src="img/Logo_IUE.png" alt="Logotipo" class="logo-img">
-    </div>
-    <h3 class="sidebar-title">Sistema de Configuración</h3>
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{{ route('logados') }}">Inicio</a>
-        </li>
-        <li class="nav-item">
-            <h5 class="nav-section-title">Interfaz</h5>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{{ route('crud') }}">CRUD</a>
-        </li>
-        <div class="mt-auto"></div>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="#">Cerrar sesión</a>
-        </li>
-    </ul>
-</div>
-
+@include('includes.sidebar')
 <div class="main-content">
     <header class="header d-flex align-items-center justify-content-between">
         <button id="toggleSidebar" class="btn btn-primary">

@@ -149,6 +149,7 @@ span {
     font-weight: 500;
     text-transform: uppercase;
     transition: color 0.3s ease;
+    text-decoration: none;
 }
 
 /* Efecto hover moderno en los enlaces solo dentro de la barra */
