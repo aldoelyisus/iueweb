@@ -8,6 +8,7 @@ use App\Http\Controllers\AspiranteController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ModalidadController;
 use App\Http\Controllers\ProgramaController;
+use App\Http\Controllers\FileController;
 
 /*
 |-------------------------------------------------------------------------- 
@@ -82,3 +83,10 @@ Route::get('servicios/{servicio}/programas', [ModalidadController::class, 'getPr
 
 // Rutas para el CRUD de Programas
 Route::resource('programas', ProgramaController::class);
+
+// Rutas para el CRUD de files
+Route::get('/test-upload', function () {
+    return view('test-upload');
+});
+
+Route::post('/upload', [FileController::class, 'store']);
