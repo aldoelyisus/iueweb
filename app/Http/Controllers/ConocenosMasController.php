@@ -68,7 +68,8 @@ class ConocenosMasController extends Controller
             $data = json_decode($response->getBody(), true);
             return 'https://drive.google.com/uc?id=' . $data['id'];
         } else {
-            throw new \Exception('Failed to upload file to Google Drive: ' . $response->getBody());
+            Log::error('Failed to upload file to Google Drive: ' . $response->getBody());
+            throw new \Exception('Failed to upload file to Google Drive.');
         }
     }
 
@@ -86,17 +87,10 @@ class ConocenosMasController extends Controller
         ]);
 
         try {
-            if ($request->hasFile('img1')) {
-                $data['img1'] = $this->uploadToGoogleDrive($request->file('img1'), 'img1_' . time());
-            }
-            if ($request->hasFile('img2')) {
-                $data['img2'] = $this->uploadToGoogleDrive($request->file('img2'), 'img2_' . time());
-            }
-            if ($request->hasFile('img3')) {
-                $data['img3'] = $this->uploadToGoogleDrive($request->file('img3'), 'img3_' . time());
-            }
-            if ($request->hasFile('img4')) {
-                $data['img4'] = $this->uploadToGoogleDrive($request->file('img4'), 'img4_' . time());
+            foreach (['img1', 'img2', 'img3', 'img4'] as $imgField) {
+                if ($request->hasFile($imgField)) {
+                    $data[$imgField] = $this->uploadToGoogleDrive($request->file($imgField), $imgField . '_' . time());
+                }
             }
 
             $item = ConocenosMas::create($data);
