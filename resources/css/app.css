@@ -149,6 +149,7 @@ span {
     font-weight: 500;
     text-transform: uppercase;
     transition: color 0.3s ease;
+    text-decoration: none;
 }
 
 /* Efecto hover moderno en los enlaces solo dentro de la barra */
@@ -497,7 +498,10 @@ span {
         column-gap: 2rem;
     }
 
-
+    .btn-small {
+        width: 75px; /* Ajusta el ancho según sea necesario */
+        padding: 5px; /* Ajusta el padding según sea necesario */
+    }
 
     .menu-btn {
         display: block;

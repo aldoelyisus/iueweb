@@ -144,11 +144,30 @@ body.dark-mode {
     color: #ffffff;
 }
 
+/* Todos los encabezados (h1 a h6) en modo oscuro */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #ffffff;
+}
+
+
+/* Las filas de las tablas en modo oscuro */
+body.dark-mode tr {
+    color: #ffffff;
+}
+
 .header.dark-mode {
     background-color: #343a40;
     color: #ffffff;
 }
-
+body.dark-mode table {
+    background-color: #343a40;
+    color: #ffffff;
+}
 .sidebar.dark-mode {
     background-color: #212529;
 }
@@ -176,10 +195,54 @@ body.dark-mode {
     background-color: #343a40;
     color: #ffffff;
 }
+/* Estilo de la tabla con bordes redondeados */
+.table-rounded {
+    border-radius: 0.5rem; /* Redondeo de bordes */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+}
 
+/* Estilo de las celdas de la tabla */
+.table-rounded th,
+.table-rounded td {
+    border-top: none; /* Eliminar el borde superior para un mejor aspecto */
+}
+
+body.dark-mode textarea,
+        body.dark-mode input[type="file"], 
+        ,
+        body.dark-mode .container, body.dark-mode .list-group{
+            background-color: #495057; /* Fondo de los inputs en modo oscuro */
+            color: #ffffff; /* Color de texto en inputs */
+            border: 1px solid #6c757d; /* Borde oscuro */
+        }
+
+        body.dark-mode textarea::placeholder,
+        body.dark-mode input[type="file"]::placeholder,
+        body.dark-mode form {
+            color: #adb5bd; /* Color de los placeholders */
+        }
+
+        body.dark-mode textarea:focus,
+        body.dark-mode input[type="file"]:focus {
+            border-color: #ffffff; /* Cambiar el color del borde al enfocar */
+            outline: none; /* Quitar el contorno predeterminado */
+        }
+
+        body.dark-mode .btn-primary {
+            background-color: #6200ea; /* Color de fondo del botón */
+            border: none; /* Sin borde */
+        }
+
+        body.dark-mode .btn-primary:hover {
+            background-color: #3700b3; /* Color de fondo al pasar el mouse */
+        }
+        body.dark-mode label {
+            color: #000000; /* Color de los labels */
+        }
 .card .card-title, .card .card-text {
     color: #ffffff;
 }
+
 
 .dashboard-widgets {
     display: flex;
