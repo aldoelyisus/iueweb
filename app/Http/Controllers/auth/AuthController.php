@@ -57,9 +57,15 @@ class AuthController extends Controller
 	public function logados()
 	{
 	    if (Auth::check()) {
-	        return view('auth/logados');
+			return view('auth/logados'); // Cambia a la vista del dashboard
+		
 	    }
 	
 	    return redirect("/")->withSuccess('No tienes acceso, por favor inicia sesión');
+    }
+
+	public function crud()
+    {
+        return view('crud'); // Asegúrate que 'crud' corresponde a la vista en resources/views/crud.blade.php
     }
 }
