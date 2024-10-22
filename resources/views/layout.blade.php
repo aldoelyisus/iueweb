@@ -9,30 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="icon" href="{{ asset('img/admin_fiveicon.png') }}" type="image/x-icon">
     <!-- SweetAlert2 CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
-    <style>
-        #cookieConsent {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #000;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            display: none;
-        }
-        #cookieConsent button {
-            background: #f1d600;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
 
@@ -58,7 +35,7 @@
     </div>
 </div>
 
-<div id="cookieConsent">
+<div id="cookieConsent" style="display: none;">
     Este sitio web utiliza cookies para asegurar que obtengas la mejor experiencia. 
     <button onclick="acceptCookies()">Aceptar</button>
 </div>
@@ -67,6 +44,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="{{ asset('js/scripts.js') }}"></script>
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script>
     function acceptCookies() {
         document.cookie = "cookieConsent=true; max-age=" + 60*60*24*30 + "; path=/";
@@ -80,5 +59,7 @@
     }
 </script>
 
+@yield('scripts')
+
 </body>
-</html> 
+</html>
