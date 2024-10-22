@@ -47,6 +47,7 @@ class ConocenosMasController extends Controller
         return view('conocenos_mas.index', compact('items'));
     }
 
+    // Método para la vista del administrador
     public function show($id)
     {
         $item = ConocenosMas::findOrFail($id);
@@ -99,7 +100,6 @@ class ConocenosMasController extends Controller
         }
     }
 
-
     public function destroy($id)
     {
         try {
@@ -109,5 +109,12 @@ class ConocenosMasController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al eliminar el registro: ' . $e->getMessage());
         }
+    }
+
+    // Método para la vista del usuario final
+    public function showConocenosMasUsuario()
+    {
+        $conocenosMas = ConocenosMas::first();
+        return view('conocenos_mas_usuario', compact('conocenosMas'));
     }
 }

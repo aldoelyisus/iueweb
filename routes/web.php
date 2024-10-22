@@ -96,3 +96,9 @@ Route::post('/upload', [FileController::class, 'store']);
 
 // Rutas para el CRUD de ConocenosMas
 Route::resource('conocenos_mas', ConocenosMasController::class);
+
+// Ruta para mostrar la página "Conócenos Más" para el usuario final
+Route::get('/conocenos-mas', [ConocenosMasController::class, 'showConocenosMasUsuario'])->name('conocenos_mas.usuario');
+
+// Ruta para mostrar la página "Conócenos Más" para el administrador
+Route::get('/conocenos-mas-admin/{id}', [ConocenosMasController::class, 'show'])->name('conocenos_mas.admin');

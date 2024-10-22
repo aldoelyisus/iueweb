@@ -209,7 +209,7 @@ body.dark-mode table {
 
 body.dark-mode textarea,
         body.dark-mode input[type="file"], 
-        ,
+        
         body.dark-mode .container, body.dark-mode .list-group{
             background-color: #495057; /* Fondo de los inputs en modo oscuro */
             color: #ffffff; /* Color de texto en inputs */
@@ -315,4 +315,16 @@ h1, h2 {
     border: none;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.btn-outline-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+    color: white;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    border-color: #545b62;
+    color: white;
 }
