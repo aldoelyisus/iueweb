@@ -45,63 +45,89 @@ class AspiranteController extends Controller
 
     public function contacto()
     {
-        $servicios = Servicio::all();
-        return view('aspirantes.contacto', compact('servicios'));
+        try {
+            $servicios = Servicio::all();
+            $programas = Programa::all();
+            return view('aspirantes.contacto', compact('servicios', 'programas'));
+        } catch (\Exception $e) {
+            dd($e->getMessage(), $e->getTrace()); // Imprimir el error para depuración
+        }
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nombrecompleto' => 'required|string|max:255',
-            'edad' => 'required|integer',
-            'telefono' => 'required|string|max:15',
-            'email' => 'required|email|max:255',
-            'servicio_id' => 'required|exists:servicios,id',
-            'programa_id' => 'nullable|exists:programas,id',
-        ]);
+        try {
+            // Mostrar los datos del request para depuración
+            dd($request->all());
 
-        $servicio = Servicio::findOrFail($request->servicio_id);
-        $programa = $request->filled('programa_id') ? Programa::findOrFail($request->programa_id) : null;
+            // Validar los datos del request
+            $request->validate([
+                'nombrecompleto' => 'required|string|max:255',
+                'edad' => 'required|integer',
+                'telefono' => 'required|string|max:15',
+                'email' => 'required|email|max:255',
+                'servicio_id' => 'required|exists:servicios,id',
+                'programa_id' => 'nullable|exists:programas,id',
+            ]);
 
-        $aspirante = Aspirante::create([
-            'nombrecompleto' => $request->nombrecompleto,
-            'edad' => $request->edad,
-            'telefono' => $request->telefono,
-            'email' => $request->email,
-            'nombre_servicio' => $servicio->nombre,
-            'nombre_programa' => $programa ? $programa->nombre : null,
-        ]);
+            // Buscar el servicio y el programa (si está presente)
+            $servicio = Servicio::findOrFail($request->servicio_id);
+            $programa = $request->filled('programa_id') ? Programa::findOrFail($request->programa_id) : null;
 
-        return redirect()->route('aspirantes.index');
+            // Crear el aspirante
+            $aspirante = Aspirante::create([
+                'nombrecompleto' => $request->nombrecompleto,
+                'edad' => $request->edad,
+                'telefono' => $request->telefono,
+                'email' => $request->email,
+                'nombre_servicio' => $servicio->nombre,
+                'nombre_programa' => $programa ? $programa->nombre : null,
+            ]);
+
+            // Redirigir a la lista de aspirantes
+            return redirect()->route('aspirantes.index')->with('success', 'Aspirante creado exitosamente.');
+        } catch (\Exception $e) {
+            // Mostrar el error para depuración
+            dd($e->getMessage(), $e->getTrace());
+        }
     }
 
     public function enviarContacto(Request $request)
     {
-        $request->validate([
-            'nombrecompleto' => 'required|string|max:255',
-            'edad' => 'required|integer',
-            'telefono' => 'required|string|max:15',
-            'email' => 'required|email|max:255',
-            'servicio_id' => 'required|exists:servicios,id',
-            'programa_id' => 'nullable|exists:programas,id',
-        ]);
+        //dd($request->all());
+        try {
+            // Validar los datos del request
+            $request->validate([
+                'nombrecompleto' => 'required|string|max:255',
+                'edad' => 'required|integer',
+                'telefono' => 'required|string|max:15',
+                'email' => 'required|email|max:255',
+                'servicio_id' => 'required|exists:servicios,id',
+                'programa_id' => 'nullable|exists:programas,id',
+            ]);
 
-        $servicio = Servicio::findOrFail($request->servicio_id);
-        $programa = $request->filled('programa_id') ? Programa::findOrFail($request->programa_id) : null;
+            // Buscar el servicio y el programa (si está presente)
+            $servicio = Servicio::findOrFail($request->servicio_id);
+            $programa = $request->filled('programa_id') ? Programa::findOrFail($request->programa_id) : null;
 
-        // Lógica para manejar el envío del formulario de contacto
-        Aspirante::create([
-            'nombrecompleto' => $request->nombrecompleto,
-            'edad' => $request->edad,
-            'telefono' => $request->telefono,
-            'email' => $request->email,
-            'servicio_id' => $request->servicio_id,
-            'programa_id' => $request->programa_id,
-            'nombre_servicio' => $servicio->nombre,
-            'nombre_programa' => $programa ? $programa->nombre : null,
-        ]);
+            // Lógica para manejar el envío del formulario de contacto
+            Aspirante::create([
+                'nombrecompleto' => $request->nombrecompleto,
+                'edad' => $request->edad,
+                'telefono' => $request->telefono,
+                'email' => $request->email,
+                'servicio_id' => $request->servicio_id,
+                'programa_id' => $request->programa_id,
+                'nombre_servicio' => $servicio->nombre,
+                'nombre_programa' => $programa ? $programa->nombre : null,
+            ]);
 
-        return redirect()->route('welcome')->with('success', 'Mensaje enviado correctamente.');
+            // Redirigir a la página de bienvenida con un mensaje de éxito
+            return redirect()->route('welcome')->with('success', 'Mensaje enviado correctamente.');
+        } catch (\Exception $e) {
+            // Mostrar el error para depuración
+            return redirect()->back()->with('error', 'Error al enviar el mensaje: ' . $e->getMessage());
+        }
     }
 
     public function show($id)

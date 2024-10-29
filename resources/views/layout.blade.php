@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="icon" href="{{ asset('img/admin_fiveicon.png') }}" type="image/x-icon">
     <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 </head>
 <body>
 
@@ -45,7 +45,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="{{ asset('js/scripts.js') }}"></script>
 <!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 <script>
     function acceptCookies() {
         document.cookie = "cookieConsent=true; max-age=" + 60*60*24*30 + "; path=/";

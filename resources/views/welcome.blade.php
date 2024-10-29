@@ -34,7 +34,6 @@
 <!-- Pantalla de carga -->
 <div id="loading">
     <img src="img/LogoF.jpg" alt="Cargando...">
-    
 </div>
 
 @include('includes.navbar')
@@ -137,7 +136,7 @@
   <script src="https://unpkg.com/scrollreveal"></script>
 
 <div id="app"></div>
-<script src="/scripts.js"></script> <!-- Ruta corregida para scripts.js -->
+<script src="{{ asset('js/scripts.js') }}" defer></script> 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 

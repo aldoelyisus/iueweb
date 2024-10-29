@@ -8,12 +8,9 @@
     <!-- box icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- SweetAlert2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-    
     <!-- Icono FiveIcon -->
     <link rel="icon" href="{{ asset('img/LogoF.jpg') }}" sizes="32x32" type="image/png">
 
@@ -25,8 +22,6 @@
 
     <title>Instituto Universitario Enlace - Contacto</title>
 
-    
-   
     @vite('resources/css/app.css')
     @vite('resources/css/noticias.css')
     @vite('resources/js/app.js')
@@ -43,8 +38,6 @@
             background-color: #f4f4f4; /* Color de fondo claro para un diseño minimalista */
         }
 
-     
-        
         .main-content {
             max-width: 600px; /* Ancho máximo del formulario */
             margin: 2rem auto; /* Centrar el formulario en la página */
@@ -98,147 +91,156 @@
         }
 
         dl, ol, ul {
-    margin-top: 0;
-    margin-bottom: 0rem;
+            margin-top: 0;
+            margin-bottom: 0rem;
         }
     </style>
 </head>
 <body>
-@include('includes.navbar')
 
-<br>
-<br>
-<br>
-<div class="main-content">
-    <section id="contacto_scroll" class="contenedor-contacto fade-in">
-        <h2 class="titulo-contacto side-left">Contáctanos</h2>
-        <form id="contact-form" action="{{ route('contacto.enviar') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="nombrecompleto">Nombre Completo</label>
-                <input type="text" name="nombrecompleto" id="nombrecompleto" class="form-control" placeholder="Ingresa tu nombre completo" value="{{ old('nombrecompleto') }}">
-            </div>
-            <div class="form-group">
-                <label for="edad">Edad</label>
-                <input type="number" name="edad" id="edad" class="form-control" placeholder="Ingresa tu edad" value="{{ old('edad') }}">
-            </div>
-            <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Ingresa tu número de teléfono" value="{{ old('telefono') }}">
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
-            </div>
-            <div class="form-group">
-                <label for="servicio_id">Servicio de Interés</label>
-                <select name="servicio_id" id="servicio_id" class="form-control">
-                    <option value="" disabled selected>Seleccione un servicio</option>
-                    @foreach($servicios as $servicio)
-                        <option value="{{ $servicio->id }}" data-requiere-programas="{{ $servicio->requiere_programas }}">
-                            {{ $servicio->nombre }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group" id="programas-container" style="display: none;">
-                <label for="programa_id">Programa de Interés</label>
-                <select name="programa_id" id="programa_id" class="form-control">
-                    <option value="" disabled selected>Seleccione un programa</option>
-                    <!-- Opciones de programas se llenarán dinámicamente -->
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-    </section>
-</div>
+    <!-- Pantalla de carga -->
+    <div id="loading">
+        <img src="img/LogoF.jpg" alt="Cargando...">
+    </div>
 
-<!-- Footer -->
-@include('includes.footer')
-<!-- Fin de footer -->
+    @include('includes.navbar')
 
-<!-- scroll reveal -->
-<script src="https://unpkg.com/scrollreveal"></script>
+    <br>
+    <br>
+    <br>
+    <div class="main-content">
+        <section id="contacto_scroll" class="contenedor-contacto fade-in">
+            <h2 class="titulo-contacto side-left">Contáctanos</h2>
+            <form id="contact-form" action="{{ route('contacto.enviar') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label for="nombrecompleto">Nombre Completo</label>
+                    <input type="text" name="nombrecompleto" id="nombrecompleto" class="form-control" placeholder="Ingresa tu nombre completo" value="{{ old('nombrecompleto') }}">
+                </div>
+                <div class="form-group">
+                    <label for="edad">Edad</label>
+                    <input type="number" name="edad" id="edad" class="form-control" placeholder="Ingresa tu edad" value="{{ old('edad') }}">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="text" name="telefono" id="telefono" class="form-control" placeholder="Ingresa tu número de teléfono" value="{{ old('telefono') }}">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Ingresa tu correo electrónico" value="{{ old('email') }}">
+                </div>
+                <div class="form-group">
+                    <label for="servicio_id">Servicio de Interés</label>
+                    <select name="servicio_id" id="servicio_id" class="form-control">
+                        <option value="" disabled selected>Seleccione un servicio</option>
+                        @foreach($servicios as $servicio)
+                            <option value="{{ $servicio->id }}" data-requiere-programas="{{ $servicio->requiere_programas }}">
+                                {{ $servicio->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group" id="programas-container" style="display: none;">
+                    <label for="programa_id">Programa de Interés</label>
+                    <select name="programa_id" id="programa_id" class="form-control">
+                        <option value="" disabled selected>Seleccione un programa</option>
+                        <!-- Opciones de programas se llenarán dinámicamente -->
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+        </section>
+    </div>
 
-<div id="app"></div>
-<script src="/scripts.js"></script> <!-- Ruta corregida para scripts.js -->
+    <!-- Footer -->
+    @include('includes.footer')
+    <!-- Fin de footer -->
 
-<!-- Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const servicioSelect = document.getElementById('servicio_id');
-        const programasContainer = document.getElementById('programas-container');
-        const programaSelect = document.getElementById('programa_id');
-        const aspiranteForm = document.getElementById('aspirante-form');
+    <!-- scroll reveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
 
-        servicioSelect.addEventListener('change', function () {
-            const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
-            const requiereProgramas = selectedOption.getAttribute('data-requiere-programas') === '1';
+    <div id="app"></div>
+    <script src="{{ asset('js/scripts.js') }}" defer></script>
 
-            if (requiereProgramas) {
-                fetch(`/servicios/${selectedOption.value}/programas`)
-                    .then(response => response.json())
-                    .then(data => {
-                        programaSelect.innerHTML = '';
-                        data.forEach(programa => {
-                            const option = document.createElement('option');
-                            option.value = programa.id;
-                            option.textContent = programa.nombre;
-                            programaSelect.appendChild(option);
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const servicioSelect = document.getElementById('servicio_id');
+            const programasContainer = document.getElementById('programas-container');
+            const programaSelect = document.getElementById('programa_id');
+            const contactForm = document.getElementById('contact-form');
+    
+            servicioSelect.addEventListener('change', function () {
+                const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
+                const requiereProgramas = selectedOption.getAttribute('data-requiere-programas') === '1';
+    
+                if (requiereProgramas) {
+                    fetch(`/servicios/${selectedOption.value}/programas`)
+                        .then(response => response.json())
+                        .then(data => {
+                            programaSelect.innerHTML = '<option value="" disabled selected>Seleccione un programa</option>';
+                            data.forEach(programa => {
+                                const option = document.createElement('option');
+                                option.value = programa.id;
+                                option.textContent = programa.nombre;
+                                programaSelect.appendChild(option);
+                            });
+                            programasContainer.style.display = 'block';
                         });
-                        programasContainer.style.display = 'block';
-                    });
-            } else {
-                programasContainer.style.display = 'none';
-            }
-        });
-        const form = document.querySelector('form');
-
-        form.addEventListener('submit', function (event) {
-            let isValid = true; // Inicializar la validez en verdadero
-
-            // Comprobar que todos los campos requeridos estén llenos
-            const fields = [
-                'nombrecompleto',
-                'edad',
-                'telefono',
-                'email',
-                'servicio_id',
-            ];
-
-            fields.forEach(function (field) {
-                const input = document.getElementById(field);
-                if (!input.value) { // Si el campo está vacío
-                    isValid = false; // Cambiar la validez a falso
-                    input.classList.add('is-invalid'); // Agregar clase de error
                 } else {
-                    input.classList.remove('is-invalid'); // Quitar clase de error si ya está lleno
+                    programasContainer.style.display = 'none';
                 }
             });
-
-            // Si no es válido, evita el envío del formulario
-            if (!isValid) {
-                event.preventDefault(); // Evitar el envío
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "Por favor, complete todos los campos requeridos.",
+    
+            contactForm.addEventListener('submit', function (event) {
+                let isValid = true; // Inicializar la validez en verdadero
+    
+                // Comprobar que todos los campos requeridos estén llenos
+                const fields = [
+                    'nombrecompleto',
+                    'edad',
+                    'telefono',
+                    'email',
+                    'servicio_id',
+                ];
+    
+                fields.forEach(function (field) {
+                    const input = document.getElementById(field);
+                    if (input && !input.value) { // Si el campo está vacío
+                        isValid = false; // Cambiar la validez a falso
+                        input.classList.add('is-invalid'); // Agregar clase de error
+                    } else if (input) {
+                        input.classList.remove('is-invalid'); // Quitar clase de error si ya está lleno
+                    }
                 });
-            } else {
-                // Si el formulario es válido, muestra la alerta de éxito
-                event.preventDefault(); // Evitar el envío para mostrar el alert
-                Swal.fire({
-                    title: "¡Buen trabajo!",
-                    text: "Los datos se han enviado correctamente.",
-                    icon: "success"
-                })
-            }
+    
+                // Si no es válido, evita el envío del formulario
+                if (!isValid) {
+                    event.preventDefault(); // Evitar el envío
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Por favor, complete todos los campos requeridos.",
+                    });
+                } else {
+                    // Si el formulario es válido, muestra la alerta de éxito
+                    event.preventDefault(); // Evitar el envío para mostrar el alert
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "tu mensaje ha sido enviado",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    }).then(() => {
+                        contactForm.submit(); // Enviar el formulario después de que la alerta desaparezca
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 </html>

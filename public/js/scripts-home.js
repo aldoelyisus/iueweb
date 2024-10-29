@@ -131,11 +131,6 @@ document.querySelector(".prev").addEventListener("click", () => {
     stopAutoSlide(); // Detiene el deslizamiento automático y reinicia el temporizador
 });
 
-// Agrega un manejador de eventos para el botón de diapositiva siguiente
-document.querySelector(".next").addEventListener("click", () => {
-    nextSlide(); // Muestra la siguiente diapositiva
-    stopAutoSlide(); // Detiene el deslizamiento automático y reinicia el temporizador
-});
 
 // Agrega un manejador de eventos a cada indicador de diapositiva
 dots.forEach((dot, index) => {
