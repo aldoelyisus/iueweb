@@ -169,6 +169,32 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const servicioSelect = document.getElementById('servicio_id');
+        const programasContainer = document.getElementById('programas-container');
+        const programaSelect = document.getElementById('programa_id');
+        const aspiranteForm = document.getElementById('aspirante-form');
+
+        servicioSelect.addEventListener('change', function () {
+            const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
+            const requiereProgramas = selectedOption.getAttribute('data-requiere-programas') === '1';
+
+            if (requiereProgramas) {
+                fetch(`/servicios/${selectedOption.value}/programas`)
+                    .then(response => response.json())
+                    .then(data => {
+                        programaSelect.innerHTML = '';
+                        data.forEach(programa => {
+                            const option = document.createElement('option');
+                            option.value = programa.id;
+                            option.textContent = programa.nombre;
+                            programaSelect.appendChild(option);
+                        });
+                        programasContainer.style.display = 'block';
+                    });
+            } else {
+                programasContainer.style.display = 'none';
+            }
+        });
         const form = document.querySelector('form');
 
         form.addEventListener('submit', function (event) {

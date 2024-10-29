@@ -11,26 +11,30 @@ class AspiranteController extends Controller
 {
     public function index(Request $request)
     {
-        $servicios = Servicio::all();
-        $programas = Programa::all();
+        try {
+            $servicios = Servicio::all();
+            $programas = Programa::all();
 
-        $aspirantes = Aspirante::query();
+            $aspirantes = Aspirante::query();
 
-        if ($request->filled('nombre_servicio')) {
-            $aspirantes->where('nombre_servicio', $request->nombre_servicio);
+            if ($request->filled('nombre_servicio')) {
+                $aspirantes->where('nombre_servicio', $request->nombre_servicio);
+            }
+
+            if ($request->filled('nombre_programa')) {
+                $aspirantes->where('nombre_programa', $request->nombre_programa);
+            }
+
+            if ($request->filled('nombrecompleto')) {
+                $aspirantes->where('nombrecompleto', 'like', '%' . $request->nombrecompleto . '%');
+            }
+
+            $aspirantes = $aspirantes->get();
+
+            return view('aspirantes.index', compact('aspirantes', 'servicios', 'programas'));
+        } catch (\Exception $e) {
+            dd($e);
         }
-
-        if ($request->filled('nombre_programa')) {
-            $aspirantes->where('nombre_programa', $request->nombre_programa);
-        }
-
-        if ($request->filled('nombrecompleto')) {
-            $aspirantes->where('nombrecompleto', 'like', '%' . $request->nombrecompleto . '%');
-        }
-
-        $aspirantes = $aspirantes->get();
-
-        return view('aspirantes.index', compact('aspirantes', 'servicios', 'programas'));
     }
 
     public function create()
