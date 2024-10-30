@@ -57,15 +57,12 @@ class AspiranteController extends Controller
     public function store(Request $request)
     {
         try {
-            // Mostrar los datos del request para depuración
-            dd($request->all());
-
-            // Validar los datos del request
+            // Validar los datos del request, incluyendo la unicidad del correo
             $request->validate([
                 'nombrecompleto' => 'required|string|max:255',
                 'edad' => 'required|integer',
                 'telefono' => 'required|string|max:15',
-                'email' => 'required|email|max:255',
+                'email' => 'required|email|max:255|unique:aspirantes,email',
                 'servicio_id' => 'required|exists:servicios,id',
                 'programa_id' => 'nullable|exists:programas,id',
             ]);
@@ -88,46 +85,42 @@ class AspiranteController extends Controller
             return redirect()->route('aspirantes.index')->with('success', 'Aspirante creado exitosamente.');
         } catch (\Exception $e) {
             // Mostrar el error para depuración
-            dd($e->getMessage(), $e->getTrace());
+            return redirect()->back()->with('error', 'Error al crear el aspirante: ' . $e->getMessage());
         }
     }
 
     public function enviarContacto(Request $request)
     {
-        //dd($request->all());
-        try {
-            // Validar los datos del request
-            $request->validate([
-                'nombrecompleto' => 'required|string|max:255',
-                'edad' => 'required|integer',
-                'telefono' => 'required|string|max:15',
-                'email' => 'required|email|max:255',
-                'servicio_id' => 'required|exists:servicios,id',
-                'programa_id' => 'nullable|exists:programas,id',
-            ]);
-
-            // Buscar el servicio y el programa (si está presente)
-            $servicio = Servicio::findOrFail($request->servicio_id);
-            $programa = $request->filled('programa_id') ? Programa::findOrFail($request->programa_id) : null;
-
-            // Lógica para manejar el envío del formulario de contacto
-            Aspirante::create([
-                'nombrecompleto' => $request->nombrecompleto,
-                'edad' => $request->edad,
-                'telefono' => $request->telefono,
-                'email' => $request->email,
-                'servicio_id' => $request->servicio_id,
-                'programa_id' => $request->programa_id,
-                'nombre_servicio' => $servicio->nombre,
-                'nombre_programa' => $programa ? $programa->nombre : null,
-            ]);
-
-            // Redirigir a la página de bienvenida con un mensaje de éxito
-            return redirect()->route('welcome')->with('success', 'Mensaje enviado correctamente.');
-        } catch (\Exception $e) {
-            // Mostrar el error para depuración
-            return redirect()->back()->with('error', 'Error al enviar el mensaje: ' . $e->getMessage());
+        // Verificar si el correo ya existe en la base de datos
+        if (Aspirante::where('email', $request->email)->exists()) {
+            return response()->json(['error' => 'El correo ya está registrado'], 422);
         }
+
+        // Continuar con la validación y creación si el correo no existe
+        $request->validate([
+            'nombrecompleto' => 'required|string|max:255',
+            'edad' => 'required|integer',
+            'telefono' => 'required|string|max:15',
+            'email' => 'required|email|max:255|unique:aspirantes,email',
+            'servicio_id' => 'required|exists:servicios,id',
+            'programa_id' => 'nullable|exists:programas,id',
+        ]);
+
+        $servicio = Servicio::findOrFail($request->servicio_id);
+        $programa = $request->filled('programa_id') ? Programa::findOrFail($request->programa_id) : null;
+
+        Aspirante::create([
+            'nombrecompleto' => $request->nombrecompleto,
+            'edad' => $request->edad,
+            'telefono' => $request->telefono,
+            'email' => $request->email,
+            'servicio_id' => $request->servicio_id,
+            'programa_id' => $request->programa_id,
+            'nombre_servicio' => $servicio->nombre,
+            'nombre_programa' => $programa ? $programa->nombre : null,
+        ]);
+
+        return response()->json(['success' => 'Mensaje enviado correctamente.']);
     }
 
     public function show($id)

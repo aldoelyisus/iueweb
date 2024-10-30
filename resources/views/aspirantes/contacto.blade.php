@@ -172,11 +172,11 @@
             const programasContainer = document.getElementById('programas-container');
             const programaSelect = document.getElementById('programa_id');
             const contactForm = document.getElementById('contact-form');
-    
+
             servicioSelect.addEventListener('change', function () {
                 const selectedOption = servicioSelect.options[servicioSelect.selectedIndex];
                 const requiereProgramas = selectedOption.getAttribute('data-requiere-programas') === '1';
-    
+
                 if (requiereProgramas) {
                     fetch(`/servicios/${selectedOption.value}/programas`)
                         .then(response => response.json())
@@ -194,52 +194,83 @@
                     programasContainer.style.display = 'none';
                 }
             });
-    
+
             contactForm.addEventListener('submit', function (event) {
-                let isValid = true; // Inicializar la validez en verdadero
-    
-                // Comprobar que todos los campos requeridos estén llenos
-                const fields = [
-                    'nombrecompleto',
-                    'edad',
-                    'telefono',
-                    'email',
-                    'servicio_id',
-                ];
-    
+                event.preventDefault(); // Evita el envío del formulario
+
+                let isValid = true;
+                const fields = ['nombrecompleto', 'edad', 'telefono', 'email', 'servicio_id'];
+
                 fields.forEach(function (field) {
                     const input = document.getElementById(field);
-                    if (input && !input.value) { // Si el campo está vacío
-                        isValid = false; // Cambiar la validez a falso
-                        input.classList.add('is-invalid'); // Agregar clase de error
+                    if (input && !input.value) {
+                        isValid = false;
+                        input.classList.add('is-invalid');
                     } else if (input) {
-                        input.classList.remove('is-invalid'); // Quitar clase de error si ya está lleno
+                        input.classList.remove('is-invalid');
                     }
                 });
-    
-                // Si no es válido, evita el envío del formulario
-                if (!isValid) {
-                    event.preventDefault(); // Evitar el envío
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops...",
-                        text: "Por favor, complete todos los campos requeridos.",
+
+                if (isValid) {
+                    const formData = new FormData(contactForm);
+
+                    // Enviar el formulario por AJAX
+                    fetch(contactForm.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            // Alerta de error si el correo ya existe
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Correo duplicado',
+                                text: data.error,
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            // Alerta de éxito si todo está bien
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Datos guardados',
+                                text: data.success,
+                                confirmButtonText: 'OK',
+                                timer: 2000,
+                                timerProgressBar: true,
+                                showConfirmButton: false
+                            }).then(() => {
+                                contactForm.submit(); // Enviar el formulario de forma tradicional si se desea
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Ocurrió un problema al enviar el formulario.',
+                            confirmButtonText: 'OK'
+                        });
+                        console.error(error);
                     });
                 } else {
-                    // Si el formulario es válido, muestra la alerta de éxito
-                    event.preventDefault(); // Evitar el envío para mostrar el alert
+                    // Alerta de error si hay campos incompletos
                     Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "tu mensaje ha sido enviado",
-                        showConfirmButton: false,
-                        timer: 1500,
-                    }).then(() => {
-                        contactForm.submit(); // Enviar el formulario después de que la alerta desaparezca
+                        icon: 'error',
+                        title: 'Campos incompletos',
+                        text: 'Por favor complete todos los campos obligatorios.',
+                        confirmButtonText: 'OK',
+                        timer: 3000,
+                        timerProgressBar: true
                     });
                 }
             });
         });
+
     </script>
 
 </body>
