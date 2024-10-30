@@ -15,10 +15,9 @@
             <div class="dropdown">
                 <ul id="oferta" class="smooth-scroll">Oferta Académica</ul>
                 <div class="dropdown-content">
-                    <a href="Oferta_Academica/secundaria.html">Secundaria</a>
-                    <a href="Oferta_Academica/bachillerato.html">Bachillerato</a>
-                    <a href="Oferta_Academica/licenciaturas.html">Licenciaturas</a>
-                    <a href="Oferta_Academica/maestrias.html">Maestrías</a>
+                    @foreach($servicios as $servicio)
+                        <a href="{{ route('servicios.show', $servicio->id) }}">{{ $servicio->nombre }}</a>
+                    @endforeach
                 </div>
             </div>
             <!-- Dropdown "desglozar contenido" -->

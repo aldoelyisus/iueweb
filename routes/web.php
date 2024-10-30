@@ -80,7 +80,7 @@ Route::get('/servicios/{servicio}/programas', [AspiranteController::class, 'getP
 // Rutas para el CRUD de Servicios
 Route::resource('servicios', ServicioController::class);
 Route::post('/servicios/update-order', [ServicioController::class, 'updateOrder'])->name('servicios.updateOrder');
-
+Route::get('/', [ServicioController::class, 'welcome'])->name('welcome');
 
 // Rutas para el CRUD de Modalidades
 Route::resource('modalidades', ModalidadController::class);

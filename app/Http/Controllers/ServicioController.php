@@ -75,4 +75,10 @@ class ServicioController extends Controller
 
         return response()->json(['success' => 'Orden actualizado correctamente.']);
     }
+
+    public function welcome()
+    {
+        $servicios = Servicio::orderBy('orden')->get();
+        return view('welcome', compact('servicios'));
+    }
 }
