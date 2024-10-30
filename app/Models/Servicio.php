@@ -16,6 +16,7 @@ class Servicio extends Model
         'nombre',
         'descripcion',
         'requiere_programas',
+        'orden',
     ];
 
     protected $dates = ['deleted_at'];

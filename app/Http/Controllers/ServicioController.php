@@ -9,7 +9,7 @@ class ServicioController extends Controller
 {
     public function index()
     {
-        $servicios = Servicio::all();
+        $servicios = Servicio::orderBy('orden')->get(); // Ordenar por el campo orden
         return view('servicios.index', compact('servicios'));
     }
 
@@ -23,7 +23,8 @@ class ServicioController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
-            'requiere_programas' => 'required|boolean', // Nueva validación
+            'requiere_programas' => 'required|boolean',
+            'orden' => 'nullable|integer', 
         ]);
 
         $servicio = Servicio::create($request->all());
@@ -47,7 +48,8 @@ class ServicioController extends Controller
         $request->validate([
             'nombre' => 'sometimes|required|string|max:255',
             'descripcion' => 'nullable|string',
-            'requiere_programas' => 'required|boolean', // Nueva validación
+            'requiere_programas' => 'required|boolean',
+            'orden' => 'nullable|integer', // Validar el campo orden
         ]);
 
         $servicio = Servicio::findOrFail($id);
@@ -60,5 +62,16 @@ class ServicioController extends Controller
         $servicio = Servicio::findOrFail($id);
         $servicio->delete();
         return redirect()->route('servicios.index');
+    }
+
+    public function updateOrder(Request $request)
+    {
+        $order = $request->input('order');
+
+        foreach ($order as $index => $id) {
+            Servicio::where('id', $id)->update(['orden' => $index + 1]);
+        }
+
+        return response()->json(['success' => 'Orden actualizado correctamente.']);
     }
 }

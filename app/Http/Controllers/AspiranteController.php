@@ -12,7 +12,8 @@ class AspiranteController extends Controller
     public function index(Request $request)
     {
         try {
-            $servicios = Servicio::all();
+            // Obtener servicios ordenados por la columna 'orden'
+            $servicios = Servicio::orderBy('orden')->get();
             $programas = Programa::all();
 
             $aspirantes = Aspirante::query();
@@ -46,7 +47,7 @@ class AspiranteController extends Controller
     public function contacto()
     {
         try {
-            $servicios = Servicio::all();
+            $servicios = Servicio::orderBy('orden')->get();
             $programas = Programa::all();
             return view('aspirantes.contacto', compact('servicios', 'programas'));
         } catch (\Exception $e) {
