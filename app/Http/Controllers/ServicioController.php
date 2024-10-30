@@ -61,7 +61,8 @@ class ServicioController extends Controller
     {
         $servicio = Servicio::findOrFail($id);
         $servicio->delete();
-        return redirect()->route('servicios.index');
+
+        return response()->json(['success' => 'Servicio eliminado correctamente.']);
     }
 
     public function updateOrder(Request $request)

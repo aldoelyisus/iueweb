@@ -1,10 +1,10 @@
 @extends('layout')
 
-@section('title', 'Reordenar Servicios')
+@section('title', 'Lista de Servicios')
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Reordenar Servicios</h1>
+    <h1 class="text-center mb-4">Lista de Servicios</h1>
     
     @if(session('success'))
         <script>
@@ -17,6 +17,11 @@
             });
         </script>
     @endif
+
+    <!-- Botón para ir a la página de crear servicio -->
+    <div class="text-right mb-3">
+        <a href="{{ route('servicios.create') }}" class="btn btn-success">Crear Nuevo Servicio</a>
+    </div>
 
     <!-- Lista de servicios con capacidad de arrastrar -->
     <ul id="sortable-services" class="list-group">
@@ -43,7 +48,6 @@
 <!-- Incluir Sortable.js y SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Inicializar Sortable.js
